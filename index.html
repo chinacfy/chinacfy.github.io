@@ -152,6 +152,116 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-2019.03.17" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#c++相关</p>
+<p>当使用auto，array时编译发生失败，弹出带有.h头文件的头文件时，并</p>
+<p>不是codeblocks本身的原因，是你没有让编译器去适用c++11，只需要按</p>
+<p>以下步骤来就行了。</p>
+<p>找到编译器上方的settings-&gt;compiler..-&gt;在里面找到关于c++11的选</p>
+<p>项，点上就可以了。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/17/2019.03.17/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-破解360天擎企业版" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>OD加载卸载程序“uninst.exe”；</p>
+<p>执行一次“F9”，停在[xxxx3BFD] call XXXX529c；　
+　　　　　　　　　　　　　　　</p>
+<p>按“F8”2次，停在[xxxx3A80] push 0x58;</p>
+<p>按“F8”直到[xxxx3B00] call xxxx8E03处；此处要按“F7”进入函数跟进，F8会出错；</p>
+<p>执行到返回，跳出call xxxx8E03；</p>
+<p>按“F8”直到[xxxx3B8D] call xxxx2570；按“F7”进入函数；　<br>　　　　　　　　　　 //call winMain()主函数</p>
+<p>按“F8”直到[xxxx2699] call xxxx2200;　 按“F7”进入函数；　　　　　　　　　　　//call showUninstallWindow</p>
+<p>将[xxxx2341]处指令修改je [xxxxxxxx]为jne[xxxxxxxx]；               　　　　　　　　　　　//跳转为真则显示真正的卸载对话框</p>
+<p>“F9”运行显示真正的卸载对话框</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/15/破解360天擎企业版/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-2019.01.27" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -552,102 +662,6 @@ else:
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/12/24/2018.12.24/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-周报" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这周是来到网协的第一个星期，感觉自己学到了好多知识，自己单独完成了搭建博客，学习了linux指令，平时高数线代作业也是可以完成，c语言学习也进步了一点，python学习也没有落下，自己每天都能学到新东西，还是感觉很开心的</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/12/22/周报/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-第二天" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>python中输入列表的方式为<br>x = list(map(int,input().split(‘,’)))<br>每天都有进步你必然成功</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/12/20/第二天/">展开全文 >></a>
         </p>
       
 
