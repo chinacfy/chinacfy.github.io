@@ -8,13 +8,17 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>The best</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="学习通脚本： // ==UserScript==// @name         超星网课助手// @namespace    wyn665817@163.com// @version      2.2.0// @description  自动挂机看尔雅MOOC，支持后台、切换窗口不暂停，视频自动切换，屏蔽视频内的题目，倍速播放、进度条拖动、快进快退// @author       wyn6658">
+<meta property="og:type" content="article">
 <meta property="og:title" content="The best">
-<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/05/13/2019.5.13/index.html">
 <meta property="og:site_name" content="The best">
+<meta property="og:description" content="学习通脚本： // ==UserScript==// @name         超星网课助手// @namespace    wyn665817@163.com// @version      2.2.0// @description  自动挂机看尔雅MOOC，支持后台、切换窗口不暂停，视频自动切换，屏蔽视频内的题目，倍速播放、进度条拖动、快进快退// @author       wyn6658">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-05-13T11:33:16.007Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="The best">
+<meta name="twitter:description" content="学习通脚本： // ==UserScript==// @name         超星网课助手// @namespace    wyn665817@163.com// @version      2.2.0// @description  自动挂机看尔雅MOOC，支持后台、切换窗口不暂停，视频自动切换，屏蔽视频内的题目，倍速播放、进度条拖动、快进快退// @author       wyn6658">
   
     <link rel="alternative" href="/atom.xml" title="The best" type="application/atom+xml">
   
@@ -150,32 +154,108 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-python学习1226" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+            <article id="post-2019.5.13" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>python 函数运用</p>
-<p>.isdigit：是否是数字</p>
-<p>.isalpha：是否是字符</p>
-<p>.isspace：是否是空格</p>
-<p>.format:字符串格式化</p>
-<p>Fibonacci算法优化：</p>
-<p>def fib(n,cache=None):</p>
-<pre><code>if cache is None:
-    cache={}
-if n in cache:
-    return cache[n]
-if n==1 or n==2:
-    return 1
-else:
-    cache[n]=fib(n-2,cache)+fib(n-1,cache)
-    return cache[n]
-</code></pre>
+        <p>学习通脚本：</p>
+<p>// ==UserScript==<br>// @name         超星网课助手<br>// @namespace    <a href="mailto:wyn665817@163.com" target="_blank" rel="noopener">wyn665817@163.com</a><br>// @version      2.2.0<br>// @description  自动挂机看尔雅MOOC，支持后台、切换窗口不暂停，视频自动切换，屏蔽视频内的题目，倍速播放、进度条拖动、快进快退<br>// @author       wyn665817<br>// @match        <em>://</em>.chaoxing.com/<em><br>// @match        </em>://<em>.edu.cn/</em><br>// @require      <a href="https://greasyfork.org/scripts/18715/code/Hooks.js?version=661566" target="_blank" rel="noopener">https://greasyfork.org/scripts/18715/code/Hooks.js?version=661566</a><br>// @connect      forestpolice.org<br>// @run-at       document-end<br>// @grant        unsafeWindow<br>// @grant        GM_xmlhttpRequest<br>// @grant        GM_setClipboard<br>// @supportURL   <a href="https://greasyfork.org/zh-CN/scripts/369625/feedback" target="_blank" rel="noopener">https://greasyfork.org/zh-CN/scripts/369625/feedback</a><br>// @license      MIT<br>// ==/UserScript==</p>
+<p>// 设置修改后，需要刷新或重新打开网课页面才会生效<br>var setting = {<br>    // 5E3 == 5000，科学记数法，表示毫秒数<br>    time: 5E3 // 默认响应速度为5秒，不建议小于3秒<br>    ,token: ‘’ // 捐助用户可以使用上传选项功能，更精准的匹配答案，此处填写捐助后获取的识别码</p>
+<pre><code>// 1代表开启，0代表关闭
+,video: 1 // 视频支持后台、切换窗口不暂停，支持多视频，默认开启
+,work: 1 // 自动答题功能(章节测验)，作业需要手动开启查询，高准确率，默认开启
+,audio: 1 // 音频自动播放，与视频功能共享muted和drag参数，默认开启
+,book: 1 // 图书阅读任务点，非课程阅读任务点，默认开启
+,docs: 1 // 文档阅读任务点，PPT类任务点自动完成阅读任务，默认开启
+// 本区域参数，上方为任务点功能，下方为独立功能
+,jump: 1 // 自动切换任务点、章节、课程(需要配置course参数)，默认开启
+,read: 0 // 挂机课程阅读时间，支持自定义挂机时长，需要手动打开阅读页面，默认关闭
+,face: 0 // 解除面部识别，此功能仅为临时解除，可能会导致不良记录(慎用)，默认关闭
+,login: 0 // 自动登录，支持监测掉线并自动重连，需要配置详细参数，默认关闭
+
+// 仅开启video时，修改此处才会生效
+,line: &apos;公网1&apos; // 视频播放的默认资源线路，此功能适用于系统默认线路无资源，默认&apos;公网1&apos;
+,http: &apos;&apos; // 视频播放的默认清晰度，可以设置&apos;标清&apos;等，无参数则使用系统默认清晰度，默认&apos;&apos;
+,muted: 0 // 视频静音播放，此功能在视频开始播放时调整音量至静音，默认关闭
+,drag: 0 // 倍速播放、进度条拖动、快进快退，使用此功能会出现不良记录(慎用)，默认关闭
+,player: &apos;&apos; // 指定播放器的类型，支持&apos;html5&apos;和&apos;flash&apos;两种参数，其他参数代表系统默认播放器，默认&apos;&apos;
+,phone: 0 // 解除手机浏览器限制(手机端专用)，开启后可以使用手机浏览器挂机视频(慎用)，默认关闭
+
+// 仅开启work时，修改此处才会生效
+,auto: 1 // 答题完成后自动提交，默认开启
+,none: 1 // 无匹配答案时执行默认操作，关闭后若题目无匹配答案则会暂时保存已作答的题目，默认开启
+,wait: 5E3 // 自动提交前的等待时间，用于更改自动答题的提交间隔，默认5秒
+,paste: 1 // 文本编辑器允许粘贴，用于解除文本类题目的粘贴限制，默认开启
+,scale: 0 // 富文本编辑器高度自动拉伸，用于文本类题目，答题框根据内容自动调整大小，默认关闭
+
+// 仅开启jump时，修改此处才会生效
+,check: 1 // 任务点无法自动完成时暂停切换，如果网课已全部解锁的建议关闭，默认开启
+,course: 0 // 当前课程完成后自动切换课程，仅支持按照根目录课程顺序切换，建议同时配置check参数为0，默认关闭
+
+// 仅开启read时，修改此处才会生效
+,goal: 65 // 需要挂机阅读的时间，参数的单位是分钟，实际累计时间会小于此参数，默认65
+
+// 仅开启login时，修改此处才会生效，且必须设置以下参数
+,school: &apos;&apos; // 学校名称，要求完整有效可查询，例如&apos;清华大学&apos;，默认&apos;&apos;
+,username: &apos;&apos; // 学号/工号/借书证号(邮箱/手机号/账号)，例如&apos;2018010101&apos;，默认&apos;&apos;
+,password: &apos;&apos; // 密码，例如&apos;123456&apos;，默认&apos;&apos;
+</code></pre><p>},<br>_self = unsafeWindow,<br>url = location.pathname,<br>top = _self;</p>
+<p>try {<br>    while (top != _self.top) top = top.parent.document ? top.parent : _self.top;<br>} catch (err) {<br>    // console.log(err);<br>    top = _self;<br>}</p>
+<p>var $ = _self.jQuery || top.jQuery,<br>Ext = _self.Ext,<br>UE = _self.UE,<br>Hooks = Hooks || window.Hooks;</p>
+<p>setting.job = [<br>    ‘iframe[src<em>=”/video/index.html”]’,<br>    ‘iframe[src</em>=”/work/index.html”]’,<br>    ‘iframe[src<em>=”/audio/index.html”]’,<br>    ‘iframe[src</em>=”/innerbook/index.html”]’,<br>    ‘iframe[src<em>=”/ppt/index.html”]’,<br>    ‘iframe[src</em>=”/pdf/index.html”]’<br>].join(‘, ‘);<br>setting.tip = top != _self &amp;&amp; $ &amp;&amp; jobSort();</p>
+<p>if (url == ‘/ananas/modules/video/index.html’) {<br>    if (setting.video) {<br>        checkPlayer();<br>    } else if ($) {<br>        getIframe(0).remove();<br>    }<br>} else if (url == ‘/work/doHomeWorkNew’) {<br>    if (setting.work) {<br>        setTimeout(relieveLimit, setting.time / 2);<br>        beforeFind();<br>    } else {<br>        getIframe(0).remove();<br>    }<br>} else if (url == ‘/ananas/modules/audio/index.html’) {<br>    if (setting.audio) {<br>        hookAudio(_self.videojs, _self.videojs.xhr);<br>    } else if ($) {<br>        getIframe(0).remove();<br>    }<br>} else if (url == ‘/ananas/modules/innerbook/index.html’) {<br>    if (setting.book) {<br>        setTimeout(bookRead, setting.time);<br>    } else if ($) {<br>        getIframe(0).remove();<br>    }<br>} else if (url.match(/^\/ananas\/modules\/(ppt|pdf)\/index.html$/)) {<br>    if (setting.docs) {<br>        setTimeout(docsRead, setting.time);<br>    } else if ($) {<br>        getIframe(0).remove();<br>    }<br>} else if (url == ‘/knowledge/cards’) {<br>    $ &amp;&amp; checkToNext();<br>} else if (url.match(/^\/(course|zt)\/\d+.html$/)) {<br>    setTimeout(function() {<br>        setting.read &amp;&amp; _self.sendLogs &amp;&amp; $(‘.course_section:first .chapterText’).click();<br>    }, setting.time);<br>} else if (url == ‘/ztnodedetailcontroller/visitnodedetail’) {<br>    setting.read &amp;&amp; _self.sendLogs &amp;&amp; autoRead();<br>} else if (url == ‘/mycourse/studentcourse’) {<br>    goCourse();<br>} else if (url.match(/^\/visit\/(courses|interaction)$/)) {<br>    setting.face &amp;&amp; DisplayURL();<br>} else if (location.host.match(/^passport2/)) {<br>    setting.login &amp;&amp; getSchoolId();<br>}</p>
+<p>function getIframe(tip, win, job) {<br>    do {<br>        win = win ? win.parent : _self;<br>        job = $(win.frameElement).prevAll(‘.ans-job-icon’);<br>    } while (!job.length &amp;&amp; win.parent.frameElement);<br>    return tip ? win : job;<br>}</p>
+<p>function jobSort() {<br>    var win = getIframe(1),<br>    $job = $(‘.ans-job-icon’, win.parent.document).nextAll(setting.job).not(‘.ans-job-finished &gt; iframe’);<br>    if (!getIframe(0).length) {<br>    } else if ($job[0] == win.frameElement) {<br>        return true;<br>    } else {<br>        setInterval(function() {<br>            $job.filter(‘.ans-job-icon ~ iframe’).not(‘.ans-job-finished &gt; iframe’)[0] == win.frameElement &amp;&amp; location.reload();<br>        }, setting.time);<br>    }<br>}</p>
+<p>function checkPlayer() {<br>    var data = Ext.decode(Ext.fly(frameElement).getAttribute(‘data’)),<br>    danmaku = data &amp;&amp; data.danmaku ? data.danmaku : 0;<br>    if (setting.player == ‘flash’) {<br>        _self.showHTML5Player = _self.showMoocPlayer;<br>        danmaku = 1;<br>    } else if (setting.player == ‘html5’) {<br>        _self.showMoocPlayer = _self.showHTML5Player;<br>        danmaku = 0;<br>    }<br>    if (!danmaku &amp;&amp; _self.supportH5Video() &amp;&amp; !navigator.userAgent.match(/metasr/i)) {<br>        Ext.isChaoxing = Boolean(setting.phone);<br>        hookVideo(_self.videojs, _self.videojs.xhr);<br>    } else if (_self.flashChecker().hasFlash) {<br>        hookJQuery();<br>    } else {<br>        alert(“此浏览器不支持flash，请修改脚本player参数为’html5’，或者更换浏览器”);<br>    }<br>}</p>
+<p>function hookVideo(Hooks, xhr) {<br>    _self.videojs = function() {<br>        <em>self.videojs = Hooks;<br>        var config = arguments[1],<br>        line = Ext.Array.filter(Ext.Array.map(config.playlines, function(value, index) {<br>            return value.label == setting.line &amp;&amp; index;<br>        }), function(value) {<br>            return Ext.isNumber(value);<br>        })[0] || 0,<br>        http = Ext.Array.filter(config.sources, function(value) {<br>            return value.label == setting.http;<br>        })[0];<br>        config.playlines.unshift(config.playlines[line]);<br>        config.playlines.splice(line + 1, 1);<br>        config.plugins.videoJsResolutionSwitcher.default = http ? http.res : 360;<br>        config.plugins.studyControl.enableSwitchWindow = 1;<br>        config.plugins.timelineObjects.url = ‘/richvideo/initdatawithviewer?’;<br>        if (setting.drag) {<br>            config.plugins.seekBarControl.enableFastForward = 1;<br>            config.playbackRates = [1, 1.25, 1.5, 2];<br>        }<br>        var player = Hooks.apply(this, arguments);<br>        player.children</em>[0].muted = setting.muted;<br>        player.on(‘loadstart’, function() {<br>            setting.tip &amp;&amp; this.play().catch(function() {});<br>        });<br>        player.on(‘ended’, function() {<br>            $ &amp;&amp; getIframe(0).parent().addClass(‘ans-job-finished’);<br>        });<br>        _self.videojs.xhr = setting.login ? function(options, callback) {<br>            return xhr.call(this, options, function(error, response) {<br>                response.statusCode || top.location.reload();<br>                return callback.apply(this, arguments);<br>            });<br>        } : xhr;<br>        return player;<br>    };<br>}</p>
+<p>function hookJQuery() {<br>    Hooks.set(_self, ‘jQuery’, function(target, propertyName, ignored, jQuery) {<br>        Hooks.method(jQuery.fn, ‘cxplayer’, function(target, methodName, method, thisArg, args) {<br>            var that = this,<br>            // events = Ext.clone(config.events),<br>            config = args[0];<br>            config.events.onStart = function() {<br>                for (var i = 0; i &lt; 16; i++) setting.muted &amp;&amp; that.addVolNum(false);<br>                // events.onStart();<br>            };<br>            config.events.onEnd = function() {<br>                $ &amp;&amp; getIframe(0).parent().addClass(‘ans-job-finished’);<br>                // events.onEnd();<br>            };<br>            config.datas.isDefaultPlay = setting.tip || false;<br>            config.enableSwitchWindow = 1;<br>            config.datas.currVideoInfo.resourceUrl = ‘/richvideo/initdatawithviewer?’;<br>            config.datas.currVideoInfo.dftLineIndex = Ext.Array.filter(Ext.Array.map(decodeURIComponent(config.datas.currVideoInfo.getVideoUrl).match(/{.+?}/g) || [], function(value, index) {<br>                return value.match(setting.line + setting.http) &amp;&amp; index;<br>            }), function(value) {<br>                return Ext.isNumber(value);<br>            })[0] || 0;<br>            setting.drag &amp;&amp; (config.datas.currVideoInfo.getVideoUrl = config.datas.currVideoInfo.getVideoUrl.replace(/&amp;drag=false&amp;/, ‘&amp;drag=true&amp;’));<br>            return Hooks.Reply.method(arguments);<br>        });<br>        return Hooks.Reply.set(arguments);<br>    });<br>}</p>
+<p>function hookAudio(Hooks, xhr) {<br>    _self.videojs = function() {<br>        <em>self.videojs = Hooks;<br>        var config = arguments[1];<br>        config.plugins.studyControl.enableSwitchWindow = 1;<br>        setting.drag &amp;&amp; (config.plugins.seekBarControl.enableFastForward = 1);<br>        var player = Hooks.apply(this, arguments);<br>        player.children</em>[0].muted = setting.muted;<br>        player.on(‘loadstart’, function() {<br>            setting.tip &amp;&amp; this.play().catch(function() {});<br>        });<br>        player.on(‘ended’, function() {<br>            $ &amp;&amp; getIframe(0).parent().addClass(‘ans-job-finished’);<br>        });<br>        _self.videojs.xhr = setting.login ? function(options, callback) {<br>            return xhr.call(this, options, function(error, response) {<br>                response.statusCode || top.location.reload();<br>                return callback.apply(this, arguments);<br>            });<br>        } : xhr;<br>        return player;<br>    };<br>}</p>
+<p>function bookRead() {<br>    setting.tip &amp;&amp; _self.onchangepage(_self.getFrameAttr(‘end’));<br>}</p>
+<p>function docsRead() {<br>    setting.tip &amp;&amp; _self.finishJob();<br>}</p>
+<p>function relieveLimit() {<br>    setting.scale &amp;&amp; (_self.UEDITOR_CONFIG.scaleEnabled = false);<br>    $(‘.edui-default + textarea’).each(function() {<br>        UE.getEditor($(this).attr(‘name’)).ready(function() {<br>            this.autoHeightEnabled = true;<br>            setting.scale &amp;&amp; this.enableAutoHeight();<br>            setting.paste &amp;&amp; this.removeListener(‘beforepaste’, _self.myEditor_paste);<br>        });<br>    });<br>    if (!setting.paste) return;<br>    $(‘input[onpaste]’).removeAttr(‘onpaste’);<br>    _self.myEditor_paste = function() {};<br>    // _self.pasteText = function() {return true};<br>}</p>
+<p>function beforeFind() {<br>    setting.div = $(<br>        ‘<div style="border: 2px dashed rgb(0, 85, 68); width: 330px; position: fixed; top: 0; right: 0; z-index: 99999; background-color: rgba(70, 196, 38, 0.6); overflow-x: auto;">‘ +<br>            ‘<span style="font-size: medium;"></span>‘ +<br>            ‘<div style="font-size: medium;">正在搜索答案…</div>‘ +<br>            ‘<button style="margin-right: 10px;">暂停答题</button>‘ +<br>            ‘<button style="margin-right: 10px;">‘ + (setting.auto ? ‘取消本次自动提交’ : ‘开启本次自动提交’) + ‘</button>‘ +<br>            ‘<button style="margin-right: 10px;">重新查询</button>‘ +<br>            ‘<button>折叠面板</button>‘ +<br>            ‘<div style="max-height: 300px; overflow-y: auto;">‘ +<br>                ‘<table border="1" style="font-size: 12px;">‘ +<br>                    ‘<thead>‘ +<br>                        ‘<tr>‘ +<br>                            ‘<th style="width: 25px; min-width: 25px;">题号</th>‘ +<br>                            ‘<th style="width: 60%; min-width: 130px;">题目（点击可复制）</th>‘ +<br>                            ‘<th style="min-width: 130px;">答案（点击可复制）</th>‘ +<br>                        ‘</tr>‘ +<br>                    ‘</thead>‘ +<br>                    ‘<tfoot style="display: none;">‘ +<br>                        ‘<tr>‘ +<br>                            ‘<th colspan="3">答案提示框 已折叠</th>‘ +<br>                        ‘</tr>‘ +<br>                    ‘</tfoot>‘ +<br>                    ‘<tbody>‘ +<br>                        ‘<tr>‘ +<br>                            ‘<td colspan="3" style="display: none;"></td>‘ +<br>                        ‘</tr>‘ +<br>                    ‘</tbody>‘ +<br>                ‘</table>‘ +<br>            ‘</div>‘ +<br>        ‘</div>‘<br>    ).appendTo(‘body’).on(‘click’, ‘button:visible, td’, function() {<br>        var len = $(this).prevAll(‘button’).length;<br>        if (this.tagName == ‘TD’) {<br>            $(this).prev().length &amp;&amp; GM_setClipboard($(this).text());<br>        } else if (len == 0) {<br>            if (setting.loop) {<br>                clearInterval(setting.loop);<br>                delete setting.loop;<br>                setting.div.children(‘div:eq(0)’).text(‘已暂停搜索’);<br>                $(this).text(‘继续答题’);<br>            } else {<br>                setting.loop = setInterval(findAnswer, setting.time);<br>                setting.div.children(‘div:eq(0)’).text(‘正在搜索答案…’);<br>                $(this).text(‘暂停答题’);<br>            }<br>        } else if (len == 1) {<br>            setting.auto = 1 ^ setting.auto;<br>            $(this).text(setting.auto ? ‘取消本次自动提交’ : ‘开启本次自动提交’);<br>        } else if (len == 2) {<br>            location.reload();<br>        } else if (len == 3) {<br>            setting.div.find(‘tbody, tfoot’).toggle();<br>        }<br>    });<br>    setting.lose = setting.num = 0;<br>    setting.curs = $(‘script:contains(courseName)’, top.document).text().match(/courseName:\’(.+?)\’/);<br>    setting.curs = (setting.curs ? setting.curs[1] : $(‘h1’).text().trim()) || ‘无’;<br>    setting.loop = setInterval(findAnswer, setting.time);<br>    setting.tip || setting.div.children(‘button’).eq(0).click();<br>}</p>
+<p>function findAnswer() {<br>    if (setting.num &gt;= $(‘.TiMu’).length) {<br>        clearInterval(setting.loop);<br>        setting.div.children(‘button:eq(0)’).hide();<br>        var text = ‘答题已完成’;<br>        if (setting.lose) {<br>            text = ‘共有 <font color="red">‘ + setting.lose + ‘</font> 道题目待完善（已深色标注）’;<br>            setTimeout(saveThis, setting.wait, 1);<br>        } else {<br>            setTimeout(submitThis, setting.wait);<br>        }<br>        return setting.div.children(‘div:eq(0)’).html(text);<br>    }<br>    var $TiMu = $(‘.TiMu’).eq(setting.num),<br>    question = $TiMu.find(‘.Zy_TItle:eq(0) .clearfix’).text().trim(),<br>    type = $TiMu.find(‘input[name^=answertype]:eq(0)’).val() || ‘-1’,<br>    option = setting.token &amp;&amp; $TiMu.find(‘.clearfix ul:eq(0) li .after’).map(function() {<br>        return $(this).text().trim();<br>    }).filter(function() {<br>        return this.length;<br>    }).get().join(‘#’);<br>    GM_xmlhttpRequest({<br>        method: ‘POST’,<br>        url: ‘<a href="http://mooc.forestpolice.org/cx/&#39;" target="_blank" rel="noopener">http://mooc.forestpolice.org/cx/&#39;</a> + (setting.token || 0) + ‘/‘ + encodeURIComponent(question),<br>        headers: {<br>            ‘Content-type’: ‘application/x-www-form-urlencoded’<br>        },<br>        data: ‘course=’ + encodeURIComponent(setting.curs) + ‘&amp;type=’ + type + ‘&amp;option=’ + encodeURIComponent(option),<br>        timeout: setting.time,<br>        onload: function(xhr) {<br>            if (!setting.loop) {<br>            } else if (xhr.status == 200) {<br>                var obj = $.parseJSON(xhr.responseText);<br>                if (obj.code) {<br>                    setting.div.children(‘div:eq(0)’).text(‘正在搜索答案…’);<br>                    $(<br>                        ‘<tr>‘ +<br>                            ‘<td style="text-align: center;">‘ + $TiMu.find(‘.Zy_TItle:eq(0) i’).text().trim() + ‘</td>‘ +<br>                            ‘<td title="点击可复制">‘ + question + ‘</td>‘ +<br>                            ‘<td title="点击可复制">‘ + obj.data + ‘</td>‘ +<br>                        ‘</tr>‘<br>                    ).appendTo(setting.div.find(‘tbody’)).css(‘background-color’, fillAnswer($TiMu.find(‘ul:eq(0)’), obj, type) ? ‘’ : ‘rgba(0, 150, 136, 0.6)’);<br>                    setting.num++;<br>                } else {<br>                    setting.div.children(‘div:eq(0)’).text(obj.data || ‘服务器繁忙，正在重试…’);<br>                }<br>                setting.div.children(‘span’).html(obj.msg || ‘’);<br>            } else if (xhr.status == 403) {<br>                setting.div.children(‘button’).eq(0).click();<br>                setting.div.children(‘div:eq(0)’).text(‘请求过于频繁，建议稍后再试’);<br>            } else {<br>                setting.div.children(‘div:eq(0)’).text(‘服务器异常，正在重试…’);<br>            }<br>        },<br>        ontimeout: function() {<br>            setting.loop &amp;&amp; setting.div.children(‘div:eq(0)’).text(‘服务器超时，正在重试…’);<br>        }<br>    });<br>}</p>
+<p>function fillAnswer($ul, obj, type) {<br>    var $li = $ul.find(‘li’),<br>    data = String(obj.data).split(/#/),<br>    state = setting.lose;<br>    // $li.find(‘:radio:checked’).prop(‘checked’, false);<br>    obj.code == 1 &amp;&amp; $li.find(‘:radio, :checkbox’).each(function(index) {<br>        if (this.value == ‘true’) {<br>            /(^|#)(正确|是|对|√)(#|$)/.test(obj.data) &amp;&amp; this.click();<br>        } else if (this.value == ‘false’) {<br>            /(^|#)(错误|否|错|×)(#|$)/.test(obj.data) &amp;&amp; this.click();<br>        } else {<br>            var tip = $li.eq(index).find(‘.after’).text().trim() || new Date();<br>            Boolean($.inArray(tip, data) + 1 || (type == ‘1’ &amp;&amp; String(obj.data).match(tip))) == this.checked || this.click();<br>        }<br>    });<br>    if (type.match(/^[013]$/)) {<br>        var $input = $li.find(‘:radio, :checkbox’);<br>        $input.is(‘:checked’) || (setting.none ? ($input[Math.floor(Math.random() * $input.length)] || $()).click() : setting.lose++);<br>    } else if ($ul.find(‘textarea’).length) {<br>        (obj.code == 1 &amp;&amp; data.length == $li.length) || setting.none || setting.lose++;<br>        $li.each(function(index, dom) {<br>            if (state != setting.lose) return true;<br>            data[index] = (obj.code == 1 &amp;&amp; data[index]) || ‘不会’;<br>            dom = $(this).find(‘.inp’).filter(‘:visible’).val(data[index]).end().is(‘:hidden’) ? $(this).next() : dom;<br>            $(dom).find(‘.edui-default + textarea’).each(function() {<br>                UE.getEditor($(this).attr(‘name’)).setContent(data[index]);<br>            });<br>        });<br>    } else {<br>        setting.none || setting.lose++;<br>    }<br>    return state == setting.lose;<br>}</p>
+<p>function saveThis(tip) {<br>    if ($(‘#tempsave:contains(“正在暂存”)’).length) {<br>    } else if (tip) {<br>        _self.alert = console.log;<br>        $(‘#tempsave’).text(‘正在暂存…’).click();<br>    } else if (setting.auto) {<br>        getIframe(0).parent().addClass(‘ans-job-finished’);<br>    }<br>    setTimeout(saveThis, setting.time);<br>}</p>
+<p>function submitThis() {<br>    if (!setting.auto) {<br>    } else if (!$(‘.Btn_blue_1:visible’).length) {<br>        getIframe(0).parent().addClass(‘ans-job-finished’);<br>    } else if ($(‘#validate:visible’, top.document).length) {<br>    } else if ($(‘#confirmSubWin:visible’).length) {<br>        var $btn = $(‘#tipContent + <em> &gt; a’),<br>        position = $btn.offset(),<br>        mouse = document.createEvent(‘MouseEvents’);<br>        position = [position.left + Math.floor(46 </em> Math.random() + 1), position.top + Math.floor(26 <em> Math.random() + 1)];<br>        mouse.initMouseEvent(‘click’, true, true, document.defaultView, 0, 0, 0, position[0], position[1], false, false, false, false, 0, null);<br>        ($btn[0] || document).dispatchEvent(mouse);<br>    } else {<br>        $(‘.Btn_blue_1 span’).click();<br>    }<br>    setTimeout(submitThis, Math.ceil(setting.time </em> Math.random()) * 2);<br>}</p>
+<p>function checkToNext() {<br>    var $tip = $(‘.ans-job-icon’, document);<br>    $tip = setting.check ? $tip : $tip.nextAll(setting.job).prevAll(‘.ans-job-icon’);<br>    setInterval(function() {<br>        $tip.parent(‘:not(.ans-job-finished)’).length || toNext();<br>    }, setting.time);<br>}</p>
+<p>function toNext() {<br>    var $tip = $(‘span.currents ~ span’);<br>    if (!setting.jump) {<br>    } else if ($(‘.lock, .blue’, ‘.currents:header’).length || !$tip.length) {<br>        $tip = $(‘.roundpointStudent, .roundpoint’).parent();<br>        var index = $tip.index($tip.filter(‘.currents:header’));<br>        $tip.slice(index + 1).not(‘:has(.lock, .blue)’).eq(0).click().length || setting.course &amp;&amp; switchCourse();<br>    } else {<br>        $tip.eq(0).click();<br>    }<br>}</p>
+<p>function switchCourse() {<br>    GM_xmlhttpRequest({<br>        method: ‘GET’,<br>        url: ‘/visit/courses/study?isAjax=true&amp;fileId=0&amp;debug=’,<br>        headers: {<br>            ‘Referer’: location.origin + ‘/visit/courses’,<br>            ‘X-Requested-With’: ‘XMLHttpRequest’<br>        },<br>        onload: function(xhr) {<br>            var list = $(xhr.responseText).find(‘li[style] a:has(img)’).map(function() {<br>                return $(this).attr(‘href’);<br>            }),<br>            index = list.map(function(index) {<br>                return this.match(top.courseId) &amp;&amp; index;<br>            }).filter(function() {<br>                return $.isNumeric(this);<br>            })[0] + 1 || 0;<br>            setting.course = list[index] ? $.globalEval(‘location.replace(“‘ + list[index] + ‘“)’) : 0;<br>        }<br>    });<br>}</p>
+<p>function goCourse() {<br>    var jump = setting.course &amp;&amp; document.referrer.match(/\/knowledge\/cards|\/mycourse\/studentstudy/);<br>    jump &amp;&amp; setTimeout(function() {<br>        ($(‘.articlename a[href]:not([class])’)[0] || $()).click();<br>    }, setting.time);<br>}</p>
+<p>function autoRead() {<br>    if (!/^\d+(.\d+)?$/.test(setting.goal)) return;<br>    var time = setting.goal <em> 60 / $(‘.course_section’).length;<br>    $(‘html, body’).animate({<br>        scrollTop: $(document).height() - $(window).height()<br>    }, Math.round(time) </em> 1E3, function() {<br>        $(‘.nodeItem.r i’).click();<br>    }).one(‘click’, ‘#top’, function(event) {<br>        $(event.delegateTarget).stop();<br>    });<br>}</p>
+<p>function DisplayURL() {<br>    $(‘.zmodel’).on(‘click’, ‘[onclick^=openFaceTip]’, function() {<br>        _self.WAY.box.hide();<br>        var $li = $(this).closest(‘li’);<br>        $.get(‘/visit/goToCourseByFace’, {<br>            courseId: $li.find(‘input[name=courseId]’).val(),<br>            clazzId: $li.find(‘input[name=classId]’).val()<br>        }, function(data) {<br>            $li.find(‘[onclick^=openFaceTip]’).removeAttr(‘onclick’).attr({<br>                href: $(data).filter(‘script:last’).text().match(/n(“(.+?)”/)[1],<br>                target: ‘_blank’<br>            });<br>            alert(‘本课程已临时解除面部识别’);<br>        }, ‘html’);<br>    });<br>}</p>
+<p>function getSchoolId() {<br>    $.getJSON(‘/org/searchUnis?filter=’ + encodeURI(setting.school) + ‘&amp;product=44’, function(data) {<br>        if (data.result) {<br>            var msg = $.grep(data.froms, function(value) {<br>                return value.name == setting.school;<br>            })[0];<br>            msg ? setTimeout(toLogin, setting.time, msg.schoolid) : alert(‘学校名称不完整’);<br>        } else {<br>            alert(‘学校查询错误’);<br>        }<br>    });<br>}</p>
+<p>function toLogin(fid) {<br>    var ref = $(‘#ref, #refer_0x001’).val();<br>    $.post(‘/login6?refer=’ + ref, {<br>        fid: fid,<br>        uname: setting.username,<br>        password: setting.password,<br>        logintype: 1<br>    }).always(function(data, event) {<br>        event == ‘success’ ? alert($(data).find(‘#show_error’).text()) : location.href = decodeURIComponent(ref);<br>    });<br>}</p>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/p.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -184,16 +264,75 @@ else:
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/12/26/python学习1226/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/05/13/2019.5.13/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2019/03/24/2019.03.24/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -213,385 +352,14 @@ else:
 
 
 
-
-  
-    <article id="post-2018.12.24" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>#新的一天<br>今天下午学习了算法，刷了刷洛谷oj，做出来了两道字符串的题，还是比较开心的，学会了一个移动字符串的简单方法，比如说将一串字母移动n位<br>(a[i]-‘a’+n)%26+’a’,将这个放到循环里面就可以实现字母移动了，又学到了新的知识，还是十分开心的</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/12/24/2018.12.24/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-周报" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这周是来到网协的第一个星期，感觉自己学到了好多知识，自己单独完成了搭建博客，学习了linux指令，平时高数线代作业也是可以完成，c语言学习也进步了一点，python学习也没有落下，自己每天都能学到新东西，还是感觉很开心的</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/12/22/周报/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-第二天" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>python中输入列表的方式为<br>x = list(map(int,input().split(‘,’)))<br>每天都有进步你必然成功</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/12/20/第二天/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-第二个博客哟" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>学习无止境，希望你能在接下来的日子里继续努力</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/12/19/第二个博客哟/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-陈飞宇好帅" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>你好啊，陈飞宇<br>你真帅</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/12/19/陈飞宇好帅/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-bendan" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/12/19/bendan/">bendan</a>
-    </h1>
-  
-
-        
-        <a href="/2018/12/19/bendan/" class="archive-article-date">
-  	<time datetime="2018-12-19T08:10:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/12/19/bendan/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/12/19/hello-world/">Hello-world</a>
-    </h1>
-  
-
-        
-        <a href="/2018/12/19/hello-world/" class="archive-article-date">
-  	<time datetime="2018-12-19T05:01:52.870Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/12/19/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -614,8 +382,8 @@ else:
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
