@@ -152,6 +152,71 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-快速幂求逆元" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/10/快速幂求逆元/">快速幂求逆元</a>
+    </h1>
+  
+
+        
+        <a href="/2020/08/10/快速幂求逆元/" class="archive-article-date">
+  	<time datetime="2020-08-10T01:29:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- a / b ≡ a * x (mod n)</span><br><span class="line">- 两边同乘b可得 a ≡ a * b * x (mod n)</span><br><span class="line">- 即 1 ≡ b * x (mod n)</span><br><span class="line">- 同 b * x ≡ 1 (mod n)</span><br><span class="line">+ 由费马小定理（如果p是一个质数，而整数a不是p的倍数，有  a^（p-1）≡1（mod p））</span><br><span class="line">+ 可知，当n为质数时</span><br><span class="line">b ^ (n - 1) ≡ 1 (mod n)</span><br><span class="line">拆一个b出来可得 b * b ^ (n - 2) ≡ 1 (mod n)</span><br><span class="line">- 故当n为质数时，b的乘法逆元 x = b ^ (n - 2)</span><br><span class="line">即是碰到(a/b)%p的问题时，可以想办法转化为</span><br><span class="line">((a%p)*(b-1 % p))%p,这样也可以防止爆int，转化前提是b与p互质。当p是质数时，可以进一步转化为</span><br><span class="line">((a % p) * (b^(p-2) % p)) % p。</span><br></pre></td></tr></table></figure>
+<p>代码实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ll quickmi(ll a,ll b)&#123;</span><br><span class="line">     ll res=1;</span><br><span class="line">     while(b)</span><br><span class="line">     &#123;</span><br><span class="line">       if(b&amp;1) res=(long long)res*a%p;</span><br><span class="line">       a=(long long)a*a%p</span><br><span class="line">       b&gt;&gt;1;</span><br><span class="line">     &#125;</span><br><span class="line">     return res;</span><br><span class="line">&#125;</span><br><span class="line">ans=((a%p)*(quickmi(b,p-2)%p))%p;</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/08/10/快速幂求逆元/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-hexo-admin" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -632,60 +697,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/03/15/破解360天擎企业版/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2019.01.27" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="周报-："><a href="#周报-：" class="headerlink" title="周报 ："></a>周报 ：</h1><p>这周主要进行了对链表的学习，知道了链表的主要进行的详细的一些步骤。先构造出结构体，包括数据域，指针域，数据域主要由用户输入，指针域用来指向下一个结构体，链表主要由表头和节点连接而成，表头和节点的主要区别就是数据域里是否有内容，链表主要由4个函数构成：</p>
-<p>1.表头创建：创建过程就是初始化过程，之所以malloc是因为指针系统不会分配内存，指针变量才会，所以要用malloc来为其分配内存</p>
-<p>2.节点创建：struct node *creat(data),里面主要内容为为创建的节点数据域跟指针域补充值，跟表头一样都需要返回这个结构体</p>
-<p>3.插入：void insert(struct node *list,int data)，主要通过节点来插入想要插入的值</p>
-<p>4.查找:struct node <em>find(struct node </em>headnode,int data)</p>
-<p>5.删除:void delete(struct node *headnode,int data(根据什么来删除或者查找，如果按名查找为char）</p>
-<p>6.打印：void printlist(struct node *head)<br>后面的具体内容还不太理解，就不在此说明了，哈哈</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/27/2019.01.27/">展开全文 >></a>
         </p>
       
 
