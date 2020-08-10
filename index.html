@@ -152,6 +152,103 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-链式前向星" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/10/链式前向星/">链式前向星</a>
+    </h1>
+  
+
+        
+        <a href="/2020/08/10/链式前向星/" class="archive-article-date">
+  	<time datetime="2020-08-10T06:37:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="链式前向星就是邻接表"><a href="#链式前向星就是邻接表" class="headerlink" title="链式前向星就是邻接表"></a>链式前向星就是邻接表</h4><p>相对于邻接表来说，链式前向星更加方便建图，相对于邻接矩阵效率更加的高，链式前向星便是静态建立的邻接表，本篇将会对链式前向星的代码进行分步讲解以及和对于使用vector建邻接表进行实现。</p>
+<p>首先要明确一点存储的内容有哪些，图包括有向图和无向图，如果边上含有权值我们需要存储的内容便是起点终点以及这两个点形成的边上对应的权值。</p>
+<p>链式前向星既可以使用结构体存储上述三样内容也可以用数组来存储，所需要的数据分别如下：</p>
+<pre><code>struct Edge{
+  int to;//终点
+  int w;//权值
+  int next//同起点上一条边编号
+}edge[2*N];//2*N是因为需要存两个方向
+int head[N],cnt//cnt为下标,head[i]表示以i为起点的第一条边在边集数组的位置(编号),需要初始化-1
+或者是 to[2*N],w[2*N],next[2*N];
+</code></pre><p>下面便是通过函数来实现存储边（此处不再使用数组操作）:</p>
+<pre><code>void addedge(int u,int v,int w)
+{
+edge[cnt].to=v;//终点
+edge[cnt].w=w;//权值
+edge[cnt].next=head[u];//以u为起点的上一条边的编号也就是与这个边起点相同的上一条边的编号
+head[u]=cnt++;//更新u为起点的上一条边的编号
+}
+</code></pre><p>遍历所存储的边时需要进行的操作:</p>
+<pre><code>for(int i=head[i];i!=-1;i=edge[i],next){
+}
+</code></pre><p>相对于链式前向星，c++stl库的vector就显得更加的方便存储图,代码如下:</p>
+<pre><code>struct Edge{
+   int to;//终点
+   int w;//权值
+}
+vector&lt;int &gt;g[maxn]//无权值存储
+vector&lt;Edge&gt;g[maxn]//有权值存储
+for(int i=0;i&lt;maxn;i++)
+    g[i].clear;
+for(int i=1;i&lt;=m;i++){
+    cin&gt;&gt;u&gt;&gt;v;
+    g[u].push_back(v);
+    g[v].push_back(u);
+ }
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/08/10/链式前向星/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Battle-for-Wosneth" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -664,59 +761,6 @@ Hint
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/03/24/2019.03.24/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2019.03.17" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>#c++相关</p>
-<p>当使用auto，array时编译发生失败，弹出带有.h头文件的头文件时，并</p>
-<p>不是codeblocks本身的原因，是你没有让编译器去适用c++11，只需要按</p>
-<p>以下步骤来就行了。</p>
-<p>找到编译器上方的settings-&gt;compiler..-&gt;在里面找到关于c++11的选</p>
-<p>项，点上就可以了。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/17/2019.03.17/">展开全文 >></a>
         </p>
       
 
