@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>The best</title>
+  <title>SPFA | The best</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="The best">
-<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+  <meta name="description" content="此处来介绍一种求最短路的我认为比较好写的方法，叫做SPFA，相对于dijkstra，他对于稀疏图图的操作效率更加高，而且可以解决负权边的问题，但是无法处理带负环的图，主要通过队列实现，也可以通过一种SLF的优化方法，采用双端队列实现对其的优化，vis[j]比对头小插入队头，否则插入队尾。SPFA依然使用的是对邻接表存的图进行的操作。主要实现代码如下： 12345678910111213141516">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SPFA">
+<meta property="og:url" content="http://yoursite.com/2020/08/12/SPFA/index.html">
 <meta property="og:site_name" content="The best">
+<meta property="og:description" content="此处来介绍一种求最短路的我认为比较好写的方法，叫做SPFA，相对于dijkstra，他对于稀疏图图的操作效率更加高，而且可以解决负权边的问题，但是无法处理带负环的图，主要通过队列实现，也可以通过一种SLF的优化方法，采用双端队列实现对其的优化，vis[j]比对头小插入队头，否则插入队尾。SPFA依然使用的是对邻接表存的图进行的操作。主要实现代码如下： 12345678910111213141516">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-08-12T08:51:08.891Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="The best">
+<meta name="twitter:title" content="SPFA">
+<meta name="twitter:description" content="此处来介绍一种求最短路的我认为比较好写的方法，叫做SPFA，相对于dijkstra，他对于稀疏图图的操作效率更加高，而且可以解决负权边的问题，但是无法处理带负环的图，主要通过队列实现，也可以通过一种SLF的优化方法，采用双端队列实现对其的优化，vis[j]比对头小插入队头，否则插入队尾。SPFA依然使用的是对邻接表存的图进行的操作。主要实现代码如下： 12345678910111213141516">
   
     <link rel="alternative" href="/atom.xml" title="The best" type="application/atom+xml">
   
@@ -150,38 +154,57 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-2019.03.24" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-SPFA" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      SPFA
+    </h1>
+  
+
+        
+        <a href="/2020/08/12/SPFA/" class="archive-article-date">
+  	<time datetime="2020-08-12T08:40:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-12</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="有关c-："><a href="#有关c-：" class="headerlink" title="有关c++："></a>有关c++：</h1><p>###c++存在函数重载问题，例如cin.get（），函数重载即相同函数名，参数列表不同。</p>
-<p>##基于范围的for循环：</p>
-<p>prices={4.99,5.96,5.86,6.23,4.52};</p>
-<p>for(double x:prices) </p>
-<p>   cout&lt;&lt;x&lt;&lt;endl;</p>
-<p>for(double&amp;x:prices)</p>
-<p>&amp;表明x是一个引用变量。</p>
-<p>##字符函数库cctype</p>
-<p>isalpha(ch)参数为字母返回非零；</p>
-<p>ispunct(ch)参数为符号返回非零值；</p>
-<p>isspace(),标准空白字符，空格，进制，换行，回车，水平制表，垂直制表，返回非零值；</p>
-<p>isalnum(),参数为字母或数字返回非零；</p>
-<p>iscntrl(),参数为控制字符返回非零;</p>
-<p>isdigit(),参数为数字(0~9)返回非零;</p>
-<p>isgraph(),参数为除空格外的打印字符，返回非零；</p>
-<p>islower(),参数为小写字母;</p>
-<p>isprint(),参数为打印字符（包括空格）；</p>
-<p>isupper(),大写字母;</p>
-<p>isxdigit(),参数为十六进制数字,0~9,A~F或a~f;</p>
-<p>tolower(),参数为大写字符，返回小写,否则返回该参数;</p>
-<p>toupper(),参数为小写字符，返回大写，否则返回该参数;</p>
-<p>###(这些函数返回值为int，而非bool。) </p>
+        <p>此处来介绍一种求最短路的我认为比较好写的方法，叫做SPFA，相对于dijkstra，他对于稀疏图图的操作效率更加高，而且可以解决负权边的问题，但是无法处理带负环的图，主要通过队列实现，也可以通过一种SLF的优化方法，采用双端队列实现对其的优化，vis[j]比对头小插入队头，否则插入队尾<br>。SPFA依然使用的是对邻接表存的图进行的操作。<br>主要实现代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">int vis[maxn],flag[maxn],nums[maxn];//vis记录最短路，flag记录是否在队列，nums记录入队次数</span><br><span class="line">bool spfa(int s,int n)</span><br><span class="line">&#123;</span><br><span class="line">    queue&lt;int&gt;q;</span><br><span class="line">    memset(vis,INF,sizeof(vis));</span><br><span class="line">    memset(flag,0,sizeof(flag));</span><br><span class="line">    memset(nums,0,sizeof(nums));</span><br><span class="line">    vis[s]=0;</span><br><span class="line">    flag[s]=1,nums[s]++;</span><br><span class="line">    q.push(s);</span><br><span class="line">    while(!q.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        int x=q.front();</span><br><span class="line">        q.pop();</span><br><span class="line">        flag[x]=0;</span><br><span class="line">        for(int i=head[x];~i;i=edge[i].next)</span><br><span class="line">        &#123;</span><br><span class="line">            int y=edge[i].to;</span><br><span class="line">            if(vis[y]&gt;vis[x]+edge[i].w)//松弛操作</span><br><span class="line">            &#123;</span><br><span class="line">                vis[y]=vis[x]+edge[i].w;</span><br><span class="line">                if(!flag[y])</span><br><span class="line">                &#123;</span><br><span class="line">                    q.push(y);</span><br><span class="line">                    flag[y]=1;</span><br><span class="line">                    nums[y]++;</span><br><span class="line">                    if(nums[y]&gt;n)//这个点加入超过n次说明存在负圈，直接返回</span><br><span class="line">                        return false;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">     return true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/p.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -190,16 +213,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/24/2019.03.24/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/08/12/SPFA/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2020/08/10/链式前向星/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">链式前向星</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -219,503 +301,14 @@
 
 
 
-
-  
-    <article id="post-2019.03.17" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>#c++相关</p>
-<p>当使用auto，array时编译发生失败，弹出带有.h头文件的头文件时，并</p>
-<p>不是codeblocks本身的原因，是你没有让编译器去适用c++11，只需要按</p>
-<p>以下步骤来就行了。</p>
-<p>找到编译器上方的settings-&gt;compiler..-&gt;在里面找到关于c++11的选</p>
-<p>项，点上就可以了。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/17/2019.03.17/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-破解360天擎企业版" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>OD加载卸载程序“uninst.exe”；</p>
-<p>执行一次“F9”，停在[xxxx3BFD] call XXXX529c；　
-　　　　　　　　　　　　　　　</p>
-<p>按“F8”2次，停在[xxxx3A80] push 0x58;</p>
-<p>按“F8”直到[xxxx3B00] call xxxx8E03处；此处要按“F7”进入函数跟进，F8会出错；</p>
-<p>执行到返回，跳出call xxxx8E03；</p>
-<p>按“F8”直到[xxxx3B8D] call xxxx2570；按“F7”进入函数；　<br>　　　　　　　　　　 //call winMain()主函数</p>
-<p>按“F8”直到[xxxx2699] call xxxx2200;　 按“F7”进入函数；　　　　　　　　　　　//call showUninstallWindow</p>
-<p>将[xxxx2341]处指令修改je [xxxxxxxx]为jne[xxxxxxxx]；               　　　　　　　　　　　//跳转为真则显示真正的卸载对话框</p>
-<p>“F9”运行显示真正的卸载对话框</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/15/破解360天擎企业版/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2019.01.27" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="周报-："><a href="#周报-：" class="headerlink" title="周报 ："></a>周报 ：</h1><p>这周主要进行了对链表的学习，知道了链表的主要进行的详细的一些步骤。先构造出结构体，包括数据域，指针域，数据域主要由用户输入，指针域用来指向下一个结构体，链表主要由表头和节点连接而成，表头和节点的主要区别就是数据域里是否有内容，链表主要由4个函数构成：</p>
-<p>1.表头创建：创建过程就是初始化过程，之所以malloc是因为指针系统不会分配内存，指针变量才会，所以要用malloc来为其分配内存</p>
-<p>2.节点创建：struct node *creat(data),里面主要内容为为创建的节点数据域跟指针域补充值，跟表头一样都需要返回这个结构体</p>
-<p>3.插入：void insert(struct node *list,int data)，主要通过节点来插入想要插入的值</p>
-<p>4.查找:struct node <em>find(struct node </em>headnode,int data)</p>
-<p>5.删除:void delete(struct node *headnode,int data(根据什么来删除或者查找，如果按名查找为char）</p>
-<p>6.打印：void printlist(struct node *head)<br>后面的具体内容还不太理解，就不在此说明了，哈哈</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/27/2019.01.27/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2018.1.20" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><em>在const，int后面指向的值不能修改<br>即const int</em> p；</p>
-<p><em>在const前面的指针不能指向别的地方，但指向变量的值可以改变<br>即int </em>const p</p>
-<p>const int* const p；既不能指向别的常量，指向的值也不能修改</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/20/2018.1.20/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2019.01.19" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="周报："><a href="#周报：" class="headerlink" title="周报："></a>周报：</h1><p>这周是放假的第一个星期，自己对自己比较放松，前几天并没有学到什么</p>
-<p>东西，这几天看到发的一些寒假要求，才知道自己任务还是很艰巨的，所</p>
-<p>以就简单的先去了解了一下链表的一些基本内容，首先了解了关于栈的一</p>
-<p>些基本知识，发现对栈的操作一般有三种：</p>
-<pre><code>*入栈（push）：向栈中添加一个元素
-*出栈（pop）：删除栈中最近添加的一个元素并将其作为操作的返回值
-*检查是否为空（isEmpty）
-</code></pre><p>关于具体的代码实现就不列举在此了。</p>
-<p>自己还大概了解了一下链表是什么，具体是用来处理什么的，链表在某种</p>
-<p>意义上可以看成是数组的一种替代方式，主要就是用来提高空间利用率</p>
-<p>链表包括链表头，链表节点，链表尾，链表进行入栈时需要动态申请内存</p>
-<p>需要一个malloc函数来申请内存空间，此函数返回值为void*类型，参数</p>
-<p>表示申请空间的大小，一般配合sizeof（）函数使用。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/19/2019.01.19/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2019.01.02" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="20190102："><a href="#20190102：" class="headerlink" title="20190102："></a>20190102：</h1><p>今天下午在自习室做到现在，前几天，嘻嘻，没有怎么学习就不说了，<br>感觉一个人学习的感觉真的很爽，可以静下心来学，把线代结合上年的考试题复习了一下。哈哈，每天动力十足，加油</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/01/02/2019.01.02/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-20181229" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="2018最后一次周报："><a href="#2018最后一次周报：" class="headerlink" title="2018最后一次周报："></a>2018最后一次周报：</h1><p>这周内感觉自己还是学到了好多的，python这周自学到了好多东西，比如一些函数的运用</p>
-<p>.append:这个主要用来在原有列表基础上形成一个新的列表，用循环检索出来想要的内容，让后把他们放在一个新的列表供使用。</p>
-<p>.isdigit，.isalpha,.isspace,.format这几个函数在前几天的博客中都可以看到了</p>
-<p>这周还知道了python中fibonacci的算法优化，代码也可以查前几天的博客，里面都有。</p>
-<p>将字符串移动n位的一种算法，（a[i]-‘a’+n)%26+’a’放到循环里实现移动。</p>
-<p>植物大战僵尸无冷却修改方法</p>
-<p>只要懂得ce一些基础，可以打过教程，只需要知道0代表冷却，1代表恢复好了，然后通过去找地址，通过反汇编，将上面的值更改为01就好了</p>
-<p>当然吗，也没有忘记高数的复习，不过只复习了前两大章，嘻嘻，总之这周收获挺大，继续努力下去，成为The best</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/12/29/20181229/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2018.12.27" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>日常博客：</p>
-<p>又到了写博客的时间了，今天下午玩了会游戏，嘻嘻，晚上就好好学学习，把植物大战僵尸的无冷却改出来了，而且把pta刷到了100分，终于发现自己昨天的小毛病了，原来是忘了判断什么是一个单词了。</p>
-<p>下面介绍一下无冷却：</p>
-<p>0代表冷却的时候，而1当然就是冷却好了，直接暴力查找，最后剩下10几个地址的时候直接去改对应地址上的值，如果本来是0，全改成1，观察那个会使植物直接恢复，让后查找是什么访问了这个地址，反汇编，全改成一样的 00 或者 01就ok了</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/12/27/2018.12.27/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-python学习1226" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>python 函数运用</p>
-<p>.isdigit：是否是数字</p>
-<p>.isalpha：是否是字符</p>
-<p>.isspace：是否是空格</p>
-<p>.format:字符串格式化</p>
-<p>Fibonacci算法优化：</p>
-<p>def fib(n,cache=None):</p>
-<pre><code>if cache is None:
-    cache={}
-if n in cache:
-    return cache[n]
-if n==1 or n==2:
-    return 1
-else:
-    cache[n]=fib(n-2,cache)+fib(n-1,cache)
-    return cache[n]
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/12/26/python学习1226/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -738,8 +331,8 @@ else:
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
