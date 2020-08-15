@@ -152,6 +152,69 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-python学习1226" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>python 函数运用</p>
+<p>.isdigit：是否是数字</p>
+<p>.isalpha：是否是字符</p>
+<p>.isspace：是否是空格</p>
+<p>.format:字符串格式化</p>
+<p>Fibonacci算法优化：</p>
+<p>def fib(n,cache=None):</p>
+<pre><code>if cache is None:
+    cache={}
+if n in cache:
+    return cache[n]
+if n==1 or n==2:
+    return 1
+else:
+    cache[n]=fib(n-2,cache)+fib(n-1,cache)
+    return cache[n]
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/12/26/python学习1226/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-2018.12.24" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
