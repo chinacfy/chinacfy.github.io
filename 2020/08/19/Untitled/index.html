@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2020/8 | The best</title>
+  <title>再探dijkstra | The best</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="The best">
-<meta property="og:url" content="http://yoursite.com/archives/2020/08/index.html">
+  <meta name="description" content="dijkstra相对于SPFA,对稠密图的操作更加的快捷，今天又重新整理了一下思路，相信对于实现代码来说也变得更加的方便，思路如下：1.创建dis数组，用来存放传入s点到每个点的最短距离，dis[1]代表到1点的最短距离，需初始化为inf2.优先队列，用于找出未标号最小的dis[i]，最小的先出队3.首先将本身到本身放入队列，存储方式为(d[i],i),因为先比较的是第一维4.对队列进行处理，队列">
+<meta property="og:type" content="article">
+<meta property="og:title" content="再探dijkstra">
+<meta property="og:url" content="http://yoursite.com/2020/08/19/Untitled/index.html">
 <meta property="og:site_name" content="The best">
+<meta property="og:description" content="dijkstra相对于SPFA,对稠密图的操作更加的快捷，今天又重新整理了一下思路，相信对于实现代码来说也变得更加的方便，思路如下：1.创建dis数组，用来存放传入s点到每个点的最短距离，dis[1]代表到1点的最短距离，需初始化为inf2.优先队列，用于找出未标号最小的dis[i]，最小的先出队3.首先将本身到本身放入队列，存储方式为(d[i],i),因为先比较的是第一维4.对队列进行处理，队列">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-08-20T01:58:16.567Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="The best">
+<meta name="twitter:title" content="再探dijkstra">
+<meta name="twitter:description" content="dijkstra相对于SPFA,对稠密图的操作更加的快捷，今天又重新整理了一下思路，相信对于实现代码来说也变得更加的方便，思路如下：1.创建dis数组，用来存放传入s点到每个点的最短距离，dis[1]代表到1点的最短距离，需初始化为inf2.优先队列，用于找出未标号最小的dis[i]，最小的先出队3.首先将本身到本身放入队列，存储方式为(d[i],i),因为先比较的是第一维4.对队列进行处理，队列">
   
     <link rel="alternative" href="/atom.xml" title="The best" type="application/atom+xml">
   
@@ -150,292 +154,161 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-Untitled" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      再探dijkstra
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/19/Untitled/" class="archive-article-date">
+
+        
+        <a href="/2020/08/19/Untitled/" class="archive-article-date">
   	<time datetime="2020-08-19T07:44:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-19</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/19/Untitled/">再探dijkstra</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>dijkstra相对于SPFA,对稠密图的操作更加的快捷，今天又重新整理了一下思路，相信对于实现代码来说也变得更加的方便，思路如下：<br>1.创建dis数组，用来存放传入s点到每个点的最短距离，dis[1]代表到1点的最短距离，需初始化为inf<br>2.优先队列，用于找出未标号最小的dis[i]，最小的先出队<br>3.首先将本身到本身放入队列，存储方式为(d[i],i),因为先比较的是第一维<br>4.对队列进行处理，队列不为空，不断进行操作(取队首，出队)<br>5.用队列里存储的到某点的距离去与dis数组到某点的距离进行对比，如果dis数组较小，可以继续，不用更改dis数组，也是为了避免取出同一个元素。<br>6.通过对边集数组进行遍历，dis<a href="如果到当前点的距离">v</a>+e.w(该点到下一个点的距离)&lt;dis<a href="到下一个点距离">e.to</a>,松弛（更新到下一个点的dis），将下个点的dis和下标入队<br>代码如下，可以参考此代码，更快地理解dijkstra的实现思路：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">typedef long long ll;</span><br><span class="line">const int N=1e5;</span><br><span class="line">const int INF=0x3f3f3f3f;</span><br><span class="line">#define pii pair&lt;int,int&gt;</span><br><span class="line">struct Edge&#123;</span><br><span class="line">     int to;</span><br><span class="line">     int nex;</span><br><span class="line">     int w;</span><br><span class="line">&#125;edge[2*N];</span><br><span class="line">int dis[N],head[N],cnt;</span><br><span class="line">void addedge(int u,int v,int w)</span><br><span class="line">&#123;</span><br><span class="line">    edge[cnt].to=v;</span><br><span class="line">    edge[cnt].w=w;</span><br><span class="line">    edge[cnt].nex=head[u];</span><br><span class="line">    head[u]=cnt++;</span><br><span class="line">&#125;</span><br><span class="line">void dijkstra(int s)</span><br><span class="line">&#123;</span><br><span class="line">    priority_queue&lt;pii,vector&lt;pii&gt;,greater&lt;pii&gt; &gt;q;</span><br><span class="line">    memset(dis,INF,sizeof(dis));</span><br><span class="line">    dis[s]=0;</span><br><span class="line">    q.push(&#123;dis[s],s&#125;);</span><br><span class="line">    while(!q.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        pii p=q.top();</span><br><span class="line">        q.pop();</span><br><span class="line">        int v=p.second;</span><br><span class="line">        if(p.first&gt;dis[v]) continue;</span><br><span class="line">        for(int i=head[v];i!=-1;i=edge[i].nex)</span><br><span class="line">        &#123;</span><br><span class="line">            Edge e=edge[i];</span><br><span class="line">            if(dis[e.to]&gt;dis[v]+e.w)</span><br><span class="line">            &#123;</span><br><span class="line">                dis[e.to]=dis[v]+e.w;</span><br><span class="line">                q.push(&#123;dis[e.to],e.to&#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int n,m;</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">    memset(head,-1,sizeof(head));</span><br><span class="line">    for(int i=0;i&lt;m;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        int x,y,w;</span><br><span class="line">        cin&gt;&gt;x&gt;&gt;y&gt;&gt;w;</span><br><span class="line">        addedge(x,y,w);</span><br><span class="line">        addedge(y,x,w);</span><br><span class="line">    &#125;</span><br><span class="line">    dijkstra(1);</span><br><span class="line">    for(int i=1;i&lt;=n;i++)</span><br><span class="line">        cout&lt;&lt;&quot;1&quot;&lt;&lt;&quot;-&gt;&quot;&lt;&lt;i&lt;&lt;&quot;use:  &quot;&lt;&lt;dis[i]&lt;&lt;endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/p.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/08/19/Untitled/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/17/Welcome-Party-1/" class="archive-article-date">
-  	<time datetime="2020-08-17T02:09:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-17</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/08/17/Welcome-Party-1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Welcome Party</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/17/Welcome-Party-1/">Welcome Party</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/15/拓扑排序/" class="archive-article-date">
-  	<time datetime="2020-08-15T08:41:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/15/拓扑排序/">拓扑排序</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/15/Hamming-Ellipses/" class="archive-article-date">
-  	<time datetime="2020-08-15T00:58:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/15/Hamming-Ellipses/">Hamming Ellipses</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/12/SPFA/" class="archive-article-date">
-  	<time datetime="2020-08-12T08:40:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/12/SPFA/">SPFA</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/10/链式前向星/" class="archive-article-date">
-  	<time datetime="2020-08-10T06:37:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/10/链式前向星/">链式前向星</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/10/Battle-for-Wosneth/" class="archive-article-date">
-  	<time datetime="2020-08-10T03:12:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/10/Battle-for-Wosneth/">Battle for Wosneth</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/10/快速幂求逆元/" class="archive-article-date">
-  	<time datetime="2020-08-10T01:29:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/10/快速幂求逆元/">快速幂求逆元</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/09/hexo-admin/" class="archive-article-date">
-  	<time datetime="2020-08-09T08:06:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/09/hexo-admin/">hexo-admin</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/09/hello/" class="archive-article-date">
-  	<time datetime="2020-08-09T07:54:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/09/hello/">hello</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -458,8 +331,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

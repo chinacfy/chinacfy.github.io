@@ -152,6 +152,69 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Untitled" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/19/Untitled/">再探dijkstra</a>
+    </h1>
+  
+
+        
+        <a href="/2020/08/19/Untitled/" class="archive-article-date">
+  	<time datetime="2020-08-19T07:44:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>dijkstra相对于SPFA,对稠密图的操作更加的快捷，今天又重新整理了一下思路，相信对于实现代码来说也变得更加的方便，思路如下：<br>1.创建dis数组，用来存放传入s点到每个点的最短距离，dis[1]代表到1点的最短距离，需初始化为inf<br>2.优先队列，用于找出未标号最小的dis[i]，最小的先出队<br>3.首先将本身到本身放入队列，存储方式为(d[i],i),因为先比较的是第一维<br>4.对队列进行处理，队列不为空，不断进行操作(取队首，出队)<br>5.用队列里存储的到某点的距离去与dis数组到某点的距离进行对比，如果dis数组较小，可以继续，不用更改dis数组，也是为了避免取出同一个元素。<br>6.通过对边集数组进行遍历，dis<a href="如果到当前点的距离">v</a>+e.w(该点到下一个点的距离)&lt;dis<a href="到下一个点距离">e.to</a>,松弛（更新到下一个点的dis），将下个点的dis和下标入队<br>代码如下，可以参考此代码，更快地理解dijkstra的实现思路：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">typedef long long ll;</span><br><span class="line">const int N=1e5;</span><br><span class="line">const int INF=0x3f3f3f3f;</span><br><span class="line">#define pii pair&lt;int,int&gt;</span><br><span class="line">struct Edge&#123;</span><br><span class="line">     int to;</span><br><span class="line">     int nex;</span><br><span class="line">     int w;</span><br><span class="line">&#125;edge[2*N];</span><br><span class="line">int dis[N],head[N],cnt;</span><br><span class="line">void addedge(int u,int v,int w)</span><br><span class="line">&#123;</span><br><span class="line">    edge[cnt].to=v;</span><br><span class="line">    edge[cnt].w=w;</span><br><span class="line">    edge[cnt].nex=head[u];</span><br><span class="line">    head[u]=cnt++;</span><br><span class="line">&#125;</span><br><span class="line">void dijkstra(int s)</span><br><span class="line">&#123;</span><br><span class="line">    priority_queue&lt;pii,vector&lt;pii&gt;,greater&lt;pii&gt; &gt;q;</span><br><span class="line">    memset(dis,INF,sizeof(dis));</span><br><span class="line">    dis[s]=0;</span><br><span class="line">    q.push(&#123;dis[s],s&#125;);</span><br><span class="line">    while(!q.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        pii p=q.top();</span><br><span class="line">        q.pop();</span><br><span class="line">        int v=p.second;</span><br><span class="line">        if(p.first&gt;dis[v]) continue;</span><br><span class="line">        for(int i=head[v];i!=-1;i=edge[i].nex)</span><br><span class="line">        &#123;</span><br><span class="line">            Edge e=edge[i];</span><br><span class="line">            if(dis[e.to]&gt;dis[v]+e.w)</span><br><span class="line">            &#123;</span><br><span class="line">                dis[e.to]=dis[v]+e.w;</span><br><span class="line">                q.push(&#123;dis[e.to],e.to&#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int n,m;</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">    memset(head,-1,sizeof(head));</span><br><span class="line">    for(int i=0;i&lt;m;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        int x,y,w;</span><br><span class="line">        cin&gt;&gt;x&gt;&gt;y&gt;&gt;w;</span><br><span class="line">        addedge(x,y,w);</span><br><span class="line">        addedge(y,x,w);</span><br><span class="line">    &#125;</span><br><span class="line">    dijkstra(1);</span><br><span class="line">    for(int i=1;i&lt;=n;i++)</span><br><span class="line">        cout&lt;&lt;&quot;1&quot;&lt;&lt;&quot;-&gt;&quot;&lt;&lt;i&lt;&lt;&quot;use:  &quot;&lt;&lt;dis[i]&lt;&lt;endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/08/19/Untitled/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Welcome-Party-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -769,59 +832,9 @@ Hint
 
 
   
-    <article id="post-2019.08.07" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>#暑假集训第一期</p>
-<h2 id="博弈论"><a href="#博弈论" class="headerlink" title="博弈论"></a>博弈论</h2><h3 id="威佐夫博弈："><a href="#威佐夫博弈：" class="headerlink" title="威佐夫博弈："></a>威佐夫博弈：</h3><p>有两堆各若干个物品，两个人轮流从任意一堆中取出至少一个或者同时从两堆中取出同样多的物品，规定每次至少取一个，至多不限，最后取光者胜利。<br>使局势变为（1,2）为必胜，第一个值等于当前局势差*1.618,0.618为黄金分割。算法上1.618=（sqtr（5.0）+1）/2</p>
-<h3 id="NIM（尼姆）博弈-："><a href="#NIM（尼姆）博弈-：" class="headerlink" title="NIM（尼姆）博弈 ："></a>NIM（尼姆）博弈 ：</h3><p>有三堆各若干个物品，两个人轮流从某一堆取任意多的物品，规定每次至少取一个，多者不限，最后取光者得胜。<br>当前所有值异或值为零为必胜态。</p>
-<h3 id="斐波那契博弈："><a href="#斐波那契博弈：" class="headerlink" title="斐波那契博弈："></a>斐波那契博弈：</h3>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/07/2019.08.07/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
