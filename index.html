@@ -152,6 +152,72 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-再探spfa" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/21/再探spfa/">再探spfa</a>
+    </h1>
+  
+
+        
+        <a href="/2020/08/21/再探spfa/" class="archive-article-date">
+  	<time datetime="2020-08-21T00:56:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>与dijkstra不同，spfa可以对同一元素入队多次，下面是我对于spfa实现思路的详细分析，相信可以更好地去实现此代码：  </p>
+<p>1.首先需要有dis数组存储到一个点到每个点的最短路，用法同dijkstra，flag[s]代表s节点在队列，num[s]表示s节点在队列中出现次数。  </p>
+<p>2.首先初始化三个数组，dis[s]变为空，flag[s]=1,num[s]++,s入队。 </p>
+<p>3.队列不为空，取队首元素，队首元素对应的flag状态改变，遍历边集数组，进行松弛操作，如果dis[当前值]&gt;dis[上一个节点]+edge[i].w，更改dis[当前值]，如果此时的点不在队列中，入队，更改此点的flag状态，出现次数增加，如果此点出现的次数大于n，说明出现负圈，直接返回<br>下面是详细的代码，可以根据此代码对应以上思路，更加方便理解：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">#define pii pair&lt;int,int&gt;</span><br><span class="line">#define pb push_back</span><br><span class="line">#define inf 0x3f3f3f3f</span><br><span class="line">typedef long long ll;</span><br><span class="line">const int maxn=1e5+10;</span><br><span class="line">int dis[maxn],flag[maxn],num[maxn];</span><br><span class="line">struct Edge&#123;</span><br><span class="line">     int to;</span><br><span class="line">     int nex;</span><br><span class="line">     int w;</span><br><span class="line">&#125;edge[2*maxn];</span><br><span class="line">int head[maxn],cnt,n;</span><br><span class="line">void addedge(int u,int v,int w)</span><br><span class="line">&#123;</span><br><span class="line">    edge[cnt].to=v;</span><br><span class="line">    edge[cnt].w=w;</span><br><span class="line">    edge[cnt].nex=head[u];</span><br><span class="line">    head[u]=cnt++;</span><br><span class="line">&#125;</span><br><span class="line">bool spfa(int s)</span><br><span class="line">&#123;</span><br><span class="line">    queue&lt;int&gt;q;</span><br><span class="line">    memset(dis,inf,sizeof(dis));</span><br><span class="line">    memset(flag,0,sizeof(flag));</span><br><span class="line">    memset(num,0,sizeof(num));</span><br><span class="line">    dis[s]=0;</span><br><span class="line">    flag[s]=1,num[s]++;</span><br><span class="line">    q.push(s);</span><br><span class="line">    while(!q.empty())</span><br><span class="line">    &#123;</span><br><span class="line">       int p=q.front();</span><br><span class="line">       q.pop();</span><br><span class="line">       flag[p]=0;</span><br><span class="line">       for(int i=head[p];~i;i=edge[i].nex)</span><br><span class="line">       &#123;</span><br><span class="line">           int v=edge[i].to;</span><br><span class="line">           if(dis[v]&gt;dis[p]+edge[i].w)</span><br><span class="line">           &#123;</span><br><span class="line">               dis[v]=dis[p]+edge[i].w;</span><br><span class="line">               if(!flag[v])</span><br><span class="line">               &#123;</span><br><span class="line">                   flag[v]=1;</span><br><span class="line">                   q.push(v);</span><br><span class="line">                   num[v]++;</span><br><span class="line">                   if(num[v]&gt;n)</span><br><span class="line">                    return false;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return true;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    memset(head,-1,sizeof(head));</span><br><span class="line">    int m;</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">    for(int i=0;i&lt;m;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        int u,v,w;</span><br><span class="line">        cin&gt;&gt;u&gt;&gt;v&gt;&gt;w;</span><br><span class="line">        addedge(u,v,w);</span><br><span class="line">        addedge(v,u,w);</span><br><span class="line">    &#125;</span><br><span class="line">    spfa(1);</span><br><span class="line">    for(int i=1;i&lt;=n;i++)</span><br><span class="line">        cout&lt;&lt;1&lt;&lt;&quot;---&gt;&quot;&lt;&lt;i&lt;&lt;&quot;---&gt;&quot;&lt;&lt;dis[i]&lt;&lt;endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/08/21/再探spfa/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Untitled" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -741,68 +807,6 @@ Hint
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/08/09/hexo-admin/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hello" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/09/hello/">hello</a>
-    </h1>
-  
-
-        
-        <a href="/2020/08/09/hello/" class="archive-article-date">
-  	<time datetime="2020-08-09T07:54:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h5 id="我又回归了，每天学习学习学习"><a href="#我又回归了，每天学习学习学习" class="headerlink" title="我又回归了，每天学习学习学习"></a>我又回归了，每天学习学习学习</h5>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/08/09/hello/">展开全文 >></a>
         </p>
       
 

@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | The best</title>
+  <title>再探spfa | The best</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="The best">
-<meta property="og:url" content="http://yoursite.com/archives/page/3/index.html">
+  <meta name="description" content="与dijkstra不同，spfa可以对同一元素入队多次，下面是我对于spfa实现思路的详细分析，相信可以更好地去实现此代码：   1.首先需要有dis数组存储到一个点到每个点的最短路，用法同dijkstra，flag[s]代表s节点在队列，num[s]表示s节点在队列中出现次数。   2.首先初始化三个数组，dis[s]变为空，flag[s]=1,num[s]++,s入队。  3.队列不为空，取队">
+<meta property="og:type" content="article">
+<meta property="og:title" content="再探spfa">
+<meta property="og:url" content="http://yoursite.com/2020/08/21/再探spfa/index.html">
 <meta property="og:site_name" content="The best">
+<meta property="og:description" content="与dijkstra不同，spfa可以对同一元素入队多次，下面是我对于spfa实现思路的详细分析，相信可以更好地去实现此代码：   1.首先需要有dis数组存储到一个点到每个点的最短路，用法同dijkstra，flag[s]代表s节点在队列，num[s]表示s节点在队列中出现次数。   2.首先初始化三个数组，dis[s]变为空，flag[s]=1,num[s]++,s入队。  3.队列不为空，取队">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-08-21T01:00:40.619Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="The best">
+<meta name="twitter:title" content="再探spfa">
+<meta name="twitter:description" content="与dijkstra不同，spfa可以对同一元素入队多次，下面是我对于spfa实现思路的详细分析，相信可以更好地去实现此代码：   1.首先需要有dis数组存储到一个点到每个点的最短路，用法同dijkstra，flag[s]代表s节点在队列，num[s]表示s节点在队列中出现次数。   2.首先初始化三个数组，dis[s]变为空，flag[s]=1,num[s]++,s入队。  3.队列不为空，取队">
   
     <link rel="alternative" href="/atom.xml" title="The best" type="application/atom+xml">
   
@@ -150,245 +154,163 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-再探spfa" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      再探spfa
+    </h1>
+  
+
+        
+        <a href="/2020/08/21/再探spfa/" class="archive-article-date">
+  	<time datetime="2020-08-21T00:56:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-21</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>与dijkstra不同，spfa可以对同一元素入队多次，下面是我对于spfa实现思路的详细分析，相信可以更好地去实现此代码：  </p>
+<p>1.首先需要有dis数组存储到一个点到每个点的最短路，用法同dijkstra，flag[s]代表s节点在队列，num[s]表示s节点在队列中出现次数。  </p>
+<p>2.首先初始化三个数组，dis[s]变为空，flag[s]=1,num[s]++,s入队。 </p>
+<p>3.队列不为空，取队首元素，队首元素对应的flag状态改变，遍历边集数组，进行松弛操作，如果dis[当前值]&gt;dis[上一个节点]+edge[i].w，更改dis[当前值]，如果此时的点不在队列中，入队，更改此点的flag状态，出现次数增加，如果此点出现的次数大于n，说明出现负圈，直接返回<br>下面是详细的代码，可以根据此代码对应以上思路，更加方便理解：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">#define pii pair&lt;int,int&gt;</span><br><span class="line">#define pb push_back</span><br><span class="line">#define inf 0x3f3f3f3f</span><br><span class="line">typedef long long ll;</span><br><span class="line">const int maxn=1e5+10;</span><br><span class="line">int dis[maxn],flag[maxn],num[maxn];</span><br><span class="line">struct Edge&#123;</span><br><span class="line">     int to;</span><br><span class="line">     int nex;</span><br><span class="line">     int w;</span><br><span class="line">&#125;edge[2*maxn];</span><br><span class="line">int head[maxn],cnt,n;</span><br><span class="line">void addedge(int u,int v,int w)</span><br><span class="line">&#123;</span><br><span class="line">    edge[cnt].to=v;</span><br><span class="line">    edge[cnt].w=w;</span><br><span class="line">    edge[cnt].nex=head[u];</span><br><span class="line">    head[u]=cnt++;</span><br><span class="line">&#125;</span><br><span class="line">bool spfa(int s)</span><br><span class="line">&#123;</span><br><span class="line">    queue&lt;int&gt;q;</span><br><span class="line">    memset(dis,inf,sizeof(dis));</span><br><span class="line">    memset(flag,0,sizeof(flag));</span><br><span class="line">    memset(num,0,sizeof(num));</span><br><span class="line">    dis[s]=0;</span><br><span class="line">    flag[s]=1,num[s]++;</span><br><span class="line">    q.push(s);</span><br><span class="line">    while(!q.empty())</span><br><span class="line">    &#123;</span><br><span class="line">       int p=q.front();</span><br><span class="line">       q.pop();</span><br><span class="line">       flag[p]=0;</span><br><span class="line">       for(int i=head[p];~i;i=edge[i].nex)</span><br><span class="line">       &#123;</span><br><span class="line">           int v=edge[i].to;</span><br><span class="line">           if(dis[v]&gt;dis[p]+edge[i].w)</span><br><span class="line">           &#123;</span><br><span class="line">               dis[v]=dis[p]+edge[i].w;</span><br><span class="line">               if(!flag[v])</span><br><span class="line">               &#123;</span><br><span class="line">                   flag[v]=1;</span><br><span class="line">                   q.push(v);</span><br><span class="line">                   num[v]++;</span><br><span class="line">                   if(num[v]&gt;n)</span><br><span class="line">                    return false;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return true;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    memset(head,-1,sizeof(head));</span><br><span class="line">    int m;</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">    for(int i=0;i&lt;m;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        int u,v,w;</span><br><span class="line">        cin&gt;&gt;u&gt;&gt;v&gt;&gt;w;</span><br><span class="line">        addedge(u,v,w);</span><br><span class="line">        addedge(v,u,w);</span><br><span class="line">    &#125;</span><br><span class="line">    spfa(1);</span><br><span class="line">    for(int i=1;i&lt;=n;i++)</span><br><span class="line">        cout&lt;&lt;1&lt;&lt;&quot;---&gt;&quot;&lt;&lt;i&lt;&lt;&quot;---&gt;&quot;&lt;&lt;dis[i]&lt;&lt;endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/p.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/19/2019.01.19/" class="archive-article-date">
-  	<time datetime="2019-01-19T07:46:57.915Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-19</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/02/2019.01.02/" class="archive-article-date">
-  	<time datetime="2019-01-02T13:50:53.978Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-02</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
       
-        </div></section>
+
       
+
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/12/29/20181229/" class="archive-article-date">
-  	<time datetime="2018-12-29T04:25:40.961Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-29</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+      </div>
+    </span>
+  </div>
+</div>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/08/21/再探spfa/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/12/27/2018.12.27/" class="archive-article-date">
-  	<time datetime="2018-12-27T14:17:08.237Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-27</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/12/26/python学习1226/" class="archive-article-date">
-  	<time datetime="2018-12-26T12:21:43.723Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-26</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+<nav id="article-nav">
+  
+  
+    <a href="/2020/08/19/Untitled/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">再探dijkstra</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/12/24/2018.12.24/" class="archive-article-date">
-  	<time datetime="2018-12-24T08:21:56.580Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-24</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/12/22/周报/" class="archive-article-date">
-  	<time datetime="2018-12-22T13:02:28.506Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-22</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+        
+        
+    </div>
+</aside>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/12/20/第二天/" class="archive-article-date">
-  	<time datetime="2018-12-20T12:17:45.050Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-20</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/12/19/第二个博客哟/" class="archive-article-date">
-  	<time datetime="2018-12-19T11:00:48.423Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-19</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/12/19/陈飞宇好帅/" class="archive-article-date">
-  	<time datetime="2018-12-19T08:31:02.491Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-19</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/page/2/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/archives/page/4/">4</a><a class="extend next" rel="next" href="/archives/page/4/">Next &raquo;</a>
-    </nav>
+  
+
+  
+
   
 
 
@@ -412,8 +334,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
