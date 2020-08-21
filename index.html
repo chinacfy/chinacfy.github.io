@@ -152,6 +152,70 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-位图" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/21/位图/">位图</a>
+    </h1>
+  
+
+        
+        <a href="/2020/08/21/位图/" class="archive-article-date">
+  	<time datetime="2020-08-21T01:22:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>位图使用环境：内存放不下，需要使用一种特殊的数据结构来存储这么多数据，比如有40亿无符号整形数据，给定一个目标数字，判断这个数字是否在这40亿数据中，40亿int需要占用大约16G的内存，因此需要特殊处理一下，减小存储量。  </p>
+<p>我们曾学过bit（位）这是我们所能使用的最小存储单位，位图便是使用此存储单位实现存储大数据的，4个字节本来只能存1个int，一个字节相当于8位，我们可以用每一位代表一个数字，相当于原来存储一个数字的内存空间我们存储了32个数字，上面40亿的数据我们大约使用500m左右内存便可以映射出所有的数据。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">class BitMap</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">        BitMap(size_t range)</span><br><span class="line">        &#123;</span><br><span class="line">            _bitTable.resize((range&gt;&gt;5)+1)；</span><br><span class="line">             //右移五位相当于除32，加一是因为小于32的数字除以32小于零</span><br><span class="line">        &#125;</span><br><span class="line">        void SetBit(size_t x)</span><br><span class="line">        &#123;</span><br><span class="line">             size_t index = x &gt;&gt; 5;</span><br><span class="line">             size_t num = x % 32;</span><br><span class="line">            _bitTable[index] |= (1 &lt;&lt; num);</span><br><span class="line">            //5可以放在第一个整形空间的第5位，32放在第二个整形空间的第1位</span><br><span class="line">        &#125; </span><br><span class="line">         void RemoveBit(size_t x)</span><br><span class="line">         &#123;</span><br><span class="line">               size_t index = x &gt;&gt; 5;</span><br><span class="line">               size_t num = x % 32;</span><br><span class="line">              _bitTable[index] &amp;= ~(1 &lt;&lt; num);</span><br><span class="line">              //~(1 &lt;&lt; num)表示出了num位为0，其余位都为1.</span><br><span class="line">         &#125;</span><br><span class="line">         bool FindBit(size_t x)</span><br><span class="line">         &#123;</span><br><span class="line">               size_t index = x &gt;&gt; 5;</span><br><span class="line">               size_t num = x % 32;</span><br><span class="line">               return _bitTable[index] &amp; (1 &lt;&lt; num);</span><br><span class="line">         &#125;</span><br><span class="line">private:</span><br><span class="line">        vector&lt;int&gt;_bitTable;</span><br><span class="line">&#125;；</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    BitMap a(60);</span><br><span class="line">    a.SetBit(30);</span><br><span class="line">    a.SetBit(60);</span><br><span class="line">    if(a.FindBit(30))</span><br><span class="line">        cout&lt;&lt;&quot;rrr&quot;&lt;&lt;endl;</span><br><span class="line">    else</span><br><span class="line">        cout&lt;&lt;&quot;aaa&quot;&lt;&lt;endl;</span><br><span class="line">    if(a.FindBit(60))</span><br><span class="line">        cout&lt;&lt;&quot;rrr&quot;&lt;&lt;endl;</span><br><span class="line">    else</span><br><span class="line">        cout&lt;&lt;&quot;aaa&quot;&lt;&lt;endl;</span><br><span class="line">    a.SetBit(70);</span><br><span class="line">    if(a.FindBit(40))</span><br><span class="line">        cout&lt;&lt;&quot;rrr&quot;&lt;&lt;endl;</span><br><span class="line">    else</span><br><span class="line">        cout&lt;&lt;&quot;aaa&quot;&lt;&lt;endl;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/08/21/位图/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-再探spfa" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -744,69 +808,6 @@ Hint
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/08/10/快速幂求逆元/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hexo-admin" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/09/hexo-admin/">hexo-admin</a>
-    </h1>
-  
-
-        
-        <a href="/2020/08/09/hexo-admin/" class="archive-article-date">
-  	<time datetime="2020-08-09T08:06:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="hexo-admin"><a href="#hexo-admin" class="headerlink" title="hexo-admin"></a>hexo-admin</h1><p>一个非常好用的插件推荐大家使用，更加方便的部署属于自己的一片小天地</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/08/09/hexo-admin/">展开全文 >></a>
         </p>
       
 
