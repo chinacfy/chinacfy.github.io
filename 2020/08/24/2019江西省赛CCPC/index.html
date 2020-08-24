@@ -6,15 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2020/8 | The best</title>
+  <title>2019江西省赛CCPC | The best</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="The best">
-<meta property="og:url" content="http://yoursite.com/archives/2020/08/index.html">
+  <meta name="description" content="K题:给定a+b,a-b求a×b直接求解F题:给定一个字符串任意取出四个字符求构成avin的概率，so easy，答案就是(a的个数+v的个数+i的个数+n的个数)/(n^4)。代码如下:12345678910111213141516171819202122232425262728293031323334353637383940414243444546#include&amp;lt;iostream&amp;gt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2019江西省赛CCPC">
+<meta property="og:url" content="http://yoursite.com/2020/08/24/2019江西省赛CCPC/index.html">
 <meta property="og:site_name" content="The best">
+<meta property="og:description" content="K题:给定a+b,a-b求a×b直接求解F题:给定一个字符串任意取出四个字符求构成avin的概率，so easy，答案就是(a的个数+v的个数+i的个数+n的个数)/(n^4)。代码如下:12345678910111213141516171819202122232425262728293031323334353637383940414243444546#include&amp;lt;iostream&amp;gt">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://gaoxingkun.top:8080/group1/default/20200824/17/58/6/r.jpg">
+<meta property="og:updated_time" content="2020-08-24T10:00:36.753Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="The best">
+<meta name="twitter:title" content="2019江西省赛CCPC">
+<meta name="twitter:description" content="K题:给定a+b,a-b求a×b直接求解F题:给定一个字符串任意取出四个字符求构成avin的概率，so easy，答案就是(a的个数+v的个数+i的个数+n的个数)/(n^4)。代码如下:12345678910111213141516171819202122232425262728293031323334353637383940414243444546#include&amp;lt;iostream&amp;gt">
+<meta name="twitter:image" content="http://gaoxingkun.top:8080/group1/default/20200824/17/58/6/r.jpg">
   
     <link rel="alternative" href="/atom.xml" title="The best" type="application/atom+xml">
   
@@ -150,295 +156,165 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-2019江西省赛CCPC" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      2019江西省赛CCPC
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/24/2019江西省赛CCPC/" class="archive-article-date">
+
+        
+        <a href="/2020/08/24/2019江西省赛CCPC/" class="archive-article-date">
   	<time datetime="2020-08-24T09:17:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-24</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/24/2019江西省赛CCPC/">2019江西省赛CCPC</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>K题:给定a+b,a-b求a×b直接求解<br>F题:给定一个字符串任意取出四个字符求构成avin的概率，so easy，答案就是(a的个数+v的个数+i的个数+n的个数)/(n^4)。代码如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;set&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;cstring&gt;</span><br><span class="line">#include&lt;map&gt;</span><br><span class="line">#include&lt;cstdio&gt;</span><br><span class="line">#include&lt;queue&gt;</span><br><span class="line">#include&lt;stack&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">#define ios ios::sync_with_stdio(false),cin.tie(0),cout.tie(0)</span><br><span class="line">typedef long long ll;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    ios;</span><br><span class="line">    int n;</span><br><span class="line">    while(cin&gt;&gt;n)</span><br><span class="line">    &#123;</span><br><span class="line">        string s;</span><br><span class="line">        cin&gt;&gt;s;</span><br><span class="line">        int aa,vv,ii,nn;</span><br><span class="line">        aa=vv=ii=nn=0;</span><br><span class="line">        for(int i=0;i&lt;n;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            if(s[i]==&apos;a&apos;)</span><br><span class="line">                aa++;</span><br><span class="line">            else if(s[i]==&apos;v&apos;)</span><br><span class="line">                vv++;</span><br><span class="line">            else if(s[i]==&apos;i&apos;)</span><br><span class="line">                ii++;</span><br><span class="line">            else if(s[i]==&apos;n&apos;)</span><br><span class="line">                nn++;</span><br><span class="line">            else</span><br><span class="line">                continue;</span><br><span class="line">        &#125;</span><br><span class="line">        if(aa==0||vv==0||ii==0||nn==0)</span><br><span class="line">        &#123;</span><br><span class="line">            cout&lt;&lt;&quot;0/1&quot;&lt;&lt;endl;</span><br><span class="line">            continue;</span><br><span class="line">        &#125;</span><br><span class="line">        ll fenmu=pow(n,4);</span><br><span class="line">        ll fenzi=aa*vv*ii*nn;</span><br><span class="line">        ll gc=__gcd(fenmu,fenzi);</span><br><span class="line">        fenmu=fenmu/gc,fenzi=fenzi/gc;</span><br><span class="line">        cout&lt;&lt;fenzi&lt;&lt;&quot;/&quot;&lt;&lt;fenmu&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>J题：n个工厂，m个人，每个工厂一人可以生产a[i]个产品，求怎么分配这m个人，使得每个工厂可以生产的总产品数相同。构造出来两组样例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">3 7          4 15</span><br><span class="line">1 2 4        2 3 4 6</span><br><span class="line">4 2 1        6 4 3 2</span><br></pre></td></tr></table></figure></p>
+<p>便可以看出来求最小公倍数去除每个数即可，但是需要判断这些的和是否为m的整数倍，如果不为为No，否则用最小公倍数乘m除以这个和。代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;set&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;cstring&gt;</span><br><span class="line">#include&lt;map&gt;</span><br><span class="line">#include&lt;cstdio&gt;</span><br><span class="line">#include&lt;queue&gt;</span><br><span class="line">#include&lt;stack&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">#define ios ios::sync_with_stdio(false),cin.tie(0),cout.tie(0)</span><br><span class="line">typedef long long ll;</span><br><span class="line">int lcm(int a,int b)</span><br><span class="line">&#123;</span><br><span class="line">    return a/__gcd(a,b)*b;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    ios;</span><br><span class="line">    ll n,m;</span><br><span class="line">    while(cin&gt;&gt;n&gt;&gt;m)</span><br><span class="line">    &#123;</span><br><span class="line">        string s;</span><br><span class="line">        ll lcm1=1;</span><br><span class="line">        int a[1010];</span><br><span class="line">        for(int i=1;i&lt;=n;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            cin&gt;&gt;a[i];</span><br><span class="line">            lcm1=lcm(lcm1,a[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        if(n&gt;m)</span><br><span class="line">        &#123;</span><br><span class="line">            cout&lt;&lt;&quot;No&quot;&lt;&lt;endl;</span><br><span class="line">            continue;</span><br><span class="line">        &#125;</span><br><span class="line">        ll tmp=0;</span><br><span class="line">        for(int i=1;i&lt;=n;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            tmp+=lcm1/a[i];</span><br><span class="line">        &#125;</span><br><span class="line">        if(m%tmp!=0)</span><br><span class="line">        &#123;</span><br><span class="line">            cout&lt;&lt;&quot;No&quot;&lt;&lt;endl;continue;</span><br><span class="line">        &#125;</span><br><span class="line">        lcm1=lcm1*m/tmp;</span><br><span class="line">        cout&lt;&lt;&quot;Yes&quot;&lt;&lt;endl;</span><br><span class="line">        for(int i=1;i&lt;n;i++)</span><br><span class="line">            cout&lt;&lt;lcm1/a[i]&lt;&lt;&quot; &quot;;</span><br><span class="line">        cout&lt;&lt;lcm1/a[n]&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>I题：给定n个三位小数的1e18的数，四舍五入变成两位小数，新求得的数减去原来的数并求和。<br>思路如下：只需要去计算最后一位即可，因为是1e18，会爆，所以需要用字符串去存取，只判断最后一位，最后再将求得的和乘于0.001即可。代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;set&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;cstring&gt;</span><br><span class="line">#include&lt;map&gt;</span><br><span class="line">#include&lt;cstdio&gt;</span><br><span class="line">#include&lt;queue&gt;</span><br><span class="line">#include&lt;stack&gt;</span><br><span class="line">#include&lt;iomanip&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">#define ios ios::sync_with_stdio(false),cin.tie(0),cout.tie(0)</span><br><span class="line">typedef long long ll;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    ios;</span><br><span class="line">    int n;</span><br><span class="line">    while(cin&gt;&gt;n)</span><br><span class="line">    &#123;</span><br><span class="line">        int ans=0;</span><br><span class="line">       for(int i=0;i&lt;n;i++)</span><br><span class="line">       &#123;</span><br><span class="line">           string s;</span><br><span class="line">           cin&gt;&gt;s;</span><br><span class="line">           int r=0;</span><br><span class="line">           int len=s.size()-1;</span><br><span class="line">           if(s[len]&lt;&apos;5&apos;)</span><br><span class="line">           &#123;</span><br><span class="line">            r=s[len]-&apos;0&apos;;</span><br><span class="line">            r=-r;</span><br><span class="line">           &#125;</span><br><span class="line">           else</span><br><span class="line">            r=&apos;9&apos;-s[len]+1;</span><br><span class="line">            //cout&lt;&lt;&apos;9&apos;-s[len]&lt;&lt;&quot; &quot;&lt;&lt;r&lt;&lt;endl;</span><br><span class="line">           ans+=r;</span><br><span class="line">       &#125;</span><br><span class="line">       double y=ans*0.001;</span><br><span class="line">       cout&lt;&lt;fixed&lt;&lt;setprecision(3)&lt;&lt;y&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>D题：给n个数，数组a[i]，奇数位全部数字相同，偶数位全部数字相同，奇数位和偶数位不能相同，求解a[i]子序列中满足条件的最长长度。第一种解法dp,<br>dp[i][j]表示两个数字为i,j的长度，很容易可以退出递推式dp[i][j]=dp[j][i]+1(例如1,2,1,dp[1][2]就相当于dp[2][1]加了个1吗，dp[2][1]=dp[1][2]+1），期间用maxn取个最大值即可，代码如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;set&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;cstring&gt;</span><br><span class="line">#include&lt;map&gt;</span><br><span class="line">#include&lt;cstdio&gt;</span><br><span class="line">#include&lt;queue&gt;</span><br><span class="line">#include&lt;stack&gt;</span><br><span class="line">#include&lt;iomanip&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">#define ios ios::sync_with_stdio(false),cin.tie(0),cout.tie(0)</span><br><span class="line">typedef long long ll;</span><br><span class="line">const int maxn=1e5+10;</span><br><span class="line">int dp[maxn][100];</span><br><span class="line">int a[maxn];</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int n,m;</span><br><span class="line">    while(cin&gt;&gt;n&gt;&gt;m)</span><br><span class="line">    &#123;</span><br><span class="line">        memset(dp,0,sizeof(dp));</span><br><span class="line">        int man=-1;</span><br><span class="line">        for(int i=1;i&lt;=n;i++)</span><br><span class="line">            cin&gt;&gt;a[i];</span><br><span class="line">        for(int i=1;i&lt;=n;i++)&#123;</span><br><span class="line">            for(int j=1;j&lt;=m;j++)</span><br><span class="line">            &#123;</span><br><span class="line">            dp[a[i]][j]=dp[j][a[i]]+1;</span><br><span class="line">            if(a[i]==j)</span><br><span class="line">                continue;</span><br><span class="line">            //cout&lt;&lt;a[i]&lt;&lt;&quot; &quot;&lt;&lt;j&lt;&lt;&quot; &quot;&lt;&lt;dp[a[i]][j]&lt;&lt;&quot; &quot;;</span><br><span class="line">            man=max(man,dp[a[i]][j]);</span><br><span class="line">            &#125;</span><br><span class="line">            //cout&lt;&lt;endl;</span><br><span class="line">        &#125;</span><br><span class="line">        cout&lt;&lt;man&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>还有一种解法是二分加暴力也可以求解。<br>H题:给定长度为n，可以从1-n选取一个r，再从1-r选取一个l，求可以选取的区间重合的概率。<br><img src="http://gaoxingkun.top:8080/group1/default/20200824/17/58/6/r.jpg" alt><br>代码如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">typedef long long ll;</span><br><span class="line">const ll mod=1e9+7;</span><br><span class="line">ll mi(ll a,ll n)</span><br><span class="line">&#123;</span><br><span class="line">    ll res=1;</span><br><span class="line">    while(n)</span><br><span class="line">    &#123;</span><br><span class="line">        if(n&amp;1) res=res*a%mod;</span><br><span class="line">        a=a*a%mod;</span><br><span class="line">        n&gt;&gt;=1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">   int inv=mod-2;</span><br><span class="line">   int n;</span><br><span class="line">   while(cin&gt;&gt;n)</span><br><span class="line">   &#123;</span><br><span class="line">       cout&lt;&lt;(n+1)*mi(2*n,inv)%mod&lt;&lt;endl;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/p.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/08/24/2019江西省赛CCPC/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/21/位图/" class="archive-article-date">
-  	<time datetime="2020-08-21T01:22:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-21</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/08/21/位图/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">位图</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/21/位图/">位图</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/21/再探spfa/" class="archive-article-date">
-  	<time datetime="2020-08-21T00:56:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-21</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/21/再探spfa/">再探spfa</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/19/Untitled/" class="archive-article-date">
-  	<time datetime="2020-08-19T07:44:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/19/Untitled/">再探dijkstra</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/17/Welcome-Party-1/" class="archive-article-date">
-  	<time datetime="2020-08-17T02:09:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/17/Welcome-Party-1/">Welcome Party</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/15/拓扑排序/" class="archive-article-date">
-  	<time datetime="2020-08-15T08:41:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/15/拓扑排序/">拓扑排序</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/15/Hamming-Ellipses/" class="archive-article-date">
-  	<time datetime="2020-08-15T00:58:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/15/Hamming-Ellipses/">Hamming Ellipses</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/12/SPFA/" class="archive-article-date">
-  	<time datetime="2020-08-12T08:40:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/12/SPFA/">SPFA</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/10/链式前向星/" class="archive-article-date">
-  	<time datetime="2020-08-10T06:37:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/10/链式前向星/">链式前向星</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/10/Battle-for-Wosneth/" class="archive-article-date">
-  	<time datetime="2020-08-10T03:12:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/10/Battle-for-Wosneth/">Battle for Wosneth</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/2020/08/page/2/">2</a><a class="extend next" rel="next" href="/archives/2020/08/page/2/">Next &raquo;</a>
-    </nav>
   
 
 
@@ -462,8 +338,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
