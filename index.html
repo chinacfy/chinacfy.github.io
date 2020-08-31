@@ -152,6 +152,71 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-单调栈单调队列" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/31/单调栈单调队列/">单调栈单调队列</a>
+    </h1>
+  
+
+        
+        <a href="/2020/08/31/单调栈单调队列/" class="archive-article-date">
+  	<time datetime="2020-08-31T09:17:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="单调栈"><a href="#单调栈" class="headerlink" title="单调栈"></a>单调栈</h4><p>单调栈就是在栈的基础上的升级版，主要是因为单调栈中存储的元素是有序的，可以更方便的处理找当前元素左边或右边出现的第一个比当前位置大的值或是第一个比当前位置小的值，只需要在栈的基础上判断一下，在遍历数组或者vector时对栈进行处理，栈不为空，判断入栈元素与栈顶元素的大小来决定出栈即可，实现单调递减和单调递增看情况使用即可，下面是一个例子代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">for(long long i=0;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        while(!s.empty()&amp;&amp;v[i]&gt;=v[s.top()])</span><br><span class="line">        &#123;</span><br><span class="line">            a[s.top()]=i;</span><br><span class="line">            s.pop();</span><br><span class="line">        &#125;</span><br><span class="line">        s.push(i);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>根据具体情况分析使用即可。</p>
+<h4 id="单调队列"><a href="#单调队列" class="headerlink" title="单调队列"></a>单调队列</h4><p>单调队列也称滑动窗口问题，用于解决需要得到当前的某个范围的最小值或是最大值，模拟情况与单调栈一样，可以使用双端队列进行单调处理，特点是队尾入队，队首或队尾出队，主要操作便是处理好出队条件，最终使得队列中存储的是具有单调性的元素即可。下面是牛客上的一道使用到单调队列的题目：<br><a href="https://ac.nowcoder.com/acm/contest/5667/F" target="_blank" rel="noopener">https://ac.nowcoder.com/acm/contest/5667/F</a><br>代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">typedef long long ll;</span><br><span class="line">//const int maxn=300010;</span><br><span class="line">#define mp make_pair</span><br><span class="line">#define pb push_back</span><br><span class="line">const int N=5005;</span><br><span class="line">vector&lt;int&gt; v[N];</span><br><span class="line">//ll sum[maxn];</span><br><span class="line">//ll index[maxn];</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int n,m,k;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m &gt;&gt; k;</span><br><span class="line">    for(int i=1;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        deque&lt;pair&lt;int, int&gt; &gt; q;</span><br><span class="line">        for(int j=1;j&lt;=m;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            int lcm=i/__gcd(i,j)*j;</span><br><span class="line">            //cout&lt;&lt;q.back().second&lt;&lt;endl;</span><br><span class="line">            while(!q.empty() &amp;&amp; lcm&gt;q.back().second)</span><br><span class="line">            &#123;</span><br><span class="line">                //cout&lt;&lt;q.back().first&lt;&lt;&quot;   &quot;&lt;&lt;q.back().second&lt;&lt;endl;</span><br><span class="line">                q.pop_back();</span><br><span class="line">            &#125;</span><br><span class="line">            q.push_back(mp(j,lcm));</span><br><span class="line">            while(!q.empty() &amp;&amp; j-q.front().first&gt;=k)</span><br><span class="line">                q.pop_front();</span><br><span class="line">            if(j&gt;=k) v[i].pb(q.front().second);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ll ans=0;</span><br><span class="line">    for(int i=0;i&lt;m-k+1;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        deque&lt;pair&lt;int,int&gt; &gt; q;</span><br><span class="line">        for(int j=1;j&lt;=n;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            while(!q.empty() &amp;&amp; v[j][i]&gt;q.back().second)</span><br><span class="line">                q.pop_back();</span><br><span class="line">            q.push_back(mp(j,v[j][i]));</span><br><span class="line">            while(!q.empty() &amp;&amp; j-q.front().first&gt;=k)</span><br><span class="line">                q.pop_front();</span><br><span class="line">            if(j&gt;=k) ans+=q.front().second;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/08/31/单调栈单调队列/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-2019江西省赛CCPC" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -735,84 +800,6 @@ for(int i=1;i&lt;=m;i++){
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/08/10/链式前向星/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Battle-for-Wosneth" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/10/Battle-for-Wosneth/">Battle for Wosneth</a>
-    </h1>
-  
-
-        
-        <a href="/2020/08/10/Battle-for-Wosneth/" class="archive-article-date">
-  	<time datetime="2020-08-10T03:12:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h4><p> 题目链接<a href="http://acm.hdu.edu.cn/showproblem.php?pid=6838" target="_blank" rel="noopener">http://acm.hdu.edu.cn/showproblem.php?pid=6838</a>   </p>
-<pre><code>你在打游戏的时候碰到了如下问题： 有两个人记作Alice和Bob，Bob的生命值为mm，Alice的生命值很高，所以可以认为是无限的。两个人的攻击命中率分别为p%,%q。两个人轮流攻击对方。从Alice开始攻击，每次攻击的时候，如果Alice命中，那么能让对方的生命值减低1，同时自己的生命值能恢复1，如果Bob命中，那么能让对方的生命值减低1，注意Bob不会自己回血。直到Bob的血量变为0，游戏结束。Alice想知道，游戏结束的时候，自己期望生命值变化是多少，对998244353取模。注意这里的变化量不是绝对值，也就是如果50%的概率加一，50%的概率减一，那么期望的变化量就是0。对于一个分数a/b，其中gcd(a,b)=1，那么我们认为这个分数对998244353取模的值为一个数c(0&lt;=c&lt;998244353)满足bc≡a(mod998244353)。
-</code></pre><h4 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h4><pre><code>第一行一个正整数T(1≤T≤10 )表示数据组数。对于每组数据，第一行三个整数m, p, q(1&lt;=m&lt;1e9,1&lt;=p,q&lt;=100)
-</code></pre><h4 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h4><pre><code>每组测试数据，输出一个数，表示答案。
-</code></pre><h4 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input"></a>Sample Input</h4><pre><code>2
-4 100 100
-1 50 50
-</code></pre><h4 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output"></a>Sample Output</h4><pre><code>1 
-499122177
-Hint
-第一组数据中，每次都能命中，所以Alice能恢复4点生 命值，减低 3 点生命值，变化量必定为 1。
-第二组数据中，对应的分数为 1/2，在Alice命中Bob之前，Bob能期望命中Alice 1/2 次。
-</code></pre><h5 id="思路解析："><a href="#思路解析：" class="headerlink" title="思路解析："></a>思路解析：</h5><pre><code>共有两种情况：
-1.a攻击b，期望为p%，b减血，a加血
-2.b攻击a，a减血
-攻击方式为pqpqpqp……p，最后一次直接打死，并且给自己奶一口，因为b共有m滴血，所以pq总次数为m/p-1次，期望则为(m/p-1)*(p-q),最后还加了一次血,所以最终式子为(m/p-1)*(p-q)+p,将其化简为分式为((100m-p)(p-q)+p^2)/(100*p)这步是由上一步通分即可得到，上下取gcd，同除gcd，即可得到最减分式，最后对这个式子采用快速幂求逆元得到答案，最后还要注意，负数取余应该是负数加上取余对象，对最后答案要进行处理。
-</code></pre><h5 id="代码如下"><a href="#代码如下" class="headerlink" title="代码如下:"></a>代码如下:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">const int maxn=1e6+10;</span><br><span class="line">typedef long long ll;</span><br><span class="line">const int epx=998244353;</span><br><span class="line">ll qmi(ll a,ll b)</span><br><span class="line">&#123;</span><br><span class="line">    ll res=1;</span><br><span class="line">    while(b)</span><br><span class="line">    &#123;</span><br><span class="line">        if(b&amp;1) res=(long long)res*a%epx;</span><br><span class="line">        a=(long long)a*a%epx;</span><br><span class="line">        b&gt;&gt;=1;</span><br><span class="line">    &#125;</span><br><span class="line">    return res;</span><br><span class="line">&#125;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">   ios::sync_with_stdio(false);</span><br><span class="line">   ll m,p,q;</span><br><span class="line">   ll t;</span><br><span class="line">   scanf(&quot;%lld&quot;,&amp;t);</span><br><span class="line">   while(t--)</span><br><span class="line">   &#123;</span><br><span class="line">        scanf(&quot;%lld%lld%lld&quot;,&amp;m,&amp;p,&amp;q);</span><br><span class="line">        ll fenzi=(100*m-p)*(p-q)+p*p;</span><br><span class="line">        ll fenmu=100*p;</span><br><span class="line">        ll r=__gcd(fenzi,(ll)fenmu);</span><br><span class="line">        fenzi/=r;</span><br><span class="line">        fenmu/=r;</span><br><span class="line">        ll ans=((fenzi%epx)*(qmi(fenmu,epx-2)%epx))%epx;</span><br><span class="line">        if(ans&lt;0)</span><br><span class="line">            ans+=epx;</span><br><span class="line">        printf(&quot;%lld\n&quot;,ans);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/08/10/Battle-for-Wosneth/">展开全文 >></a>
         </p>
       
 
