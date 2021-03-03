@@ -152,6 +152,70 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-SPFA" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/12/SPFA/">SPFA</a>
+    </h1>
+  
+
+        
+        <a href="/2020/08/12/SPFA/" class="archive-article-date">
+  	<time datetime="2020-08-12T08:40:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>此处来介绍一种求最短路的我认为比较好写的方法，叫做SPFA，相对于dijkstra，他对于稀疏图图的操作效率更加高，而且可以解决负权边的问题，但是无法处理带负环的图，主要通过队列实现，也可以通过一种SLF的优化方法，采用双端队列实现对其的优化，vis[j]比对头小插入队头，否则插入队尾<br>。SPFA依然使用的是对邻接表存的图进行的操作。<br>主要实现代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">int vis[maxn],flag[maxn],nums[maxn];//vis记录最短路，flag记录是否在队列，nums记录入队次数</span><br><span class="line">bool spfa(int s,int n)</span><br><span class="line">&#123;</span><br><span class="line">    queue&lt;int&gt;q;</span><br><span class="line">    memset(vis,INF,sizeof(vis));</span><br><span class="line">    memset(flag,0,sizeof(flag));</span><br><span class="line">    memset(nums,0,sizeof(nums));</span><br><span class="line">    vis[s]=0;</span><br><span class="line">    flag[s]=1,nums[s]++;</span><br><span class="line">    q.push(s);</span><br><span class="line">    while(!q.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        int x=q.front();</span><br><span class="line">        q.pop();</span><br><span class="line">        flag[x]=0;</span><br><span class="line">        for(int i=head[x];~i;i=edge[i].next)</span><br><span class="line">        &#123;</span><br><span class="line">            int y=edge[i].to;</span><br><span class="line">            if(vis[y]&gt;vis[x]+edge[i].w)//松弛操作</span><br><span class="line">            &#123;</span><br><span class="line">                vis[y]=vis[x]+edge[i].w;</span><br><span class="line">                if(!flag[y])</span><br><span class="line">                &#123;</span><br><span class="line">                    q.push(y);</span><br><span class="line">                    flag[y]=1;</span><br><span class="line">                    nums[y]++;</span><br><span class="line">                    if(nums[y]&gt;n)//这个点加入超过n次说明存在负圈，直接返回</span><br><span class="line">                        return false;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">     return true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/08/12/SPFA/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-链式前向星" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -721,75 +785,6 @@ Hint
 
 
   
-    <article id="post-2019.03.24" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="有关c-："><a href="#有关c-：" class="headerlink" title="有关c++："></a>有关c++：</h1><p>###c++存在函数重载问题，例如cin.get（），函数重载即相同函数名，参数列表不同。</p>
-<p>##基于范围的for循环：</p>
-<p>prices={4.99,5.96,5.86,6.23,4.52};</p>
-<p>for(double x:prices) </p>
-<p>   cout&lt;&lt;x&lt;&lt;endl;</p>
-<p>for(double&amp;x:prices)</p>
-<p>&amp;表明x是一个引用变量。</p>
-<p>##字符函数库cctype</p>
-<p>isalpha(ch)参数为字母返回非零；</p>
-<p>ispunct(ch)参数为符号返回非零值；</p>
-<p>isspace(),标准空白字符，空格，进制，换行，回车，水平制表，垂直制表，返回非零值；</p>
-<p>isalnum(),参数为字母或数字返回非零；</p>
-<p>iscntrl(),参数为控制字符返回非零;</p>
-<p>isdigit(),参数为数字(0~9)返回非零;</p>
-<p>isgraph(),参数为除空格外的打印字符，返回非零；</p>
-<p>islower(),参数为小写字母;</p>
-<p>isprint(),参数为打印字符（包括空格）；</p>
-<p>isupper(),大写字母;</p>
-<p>isxdigit(),参数为十六进制数字,0~9,A~F或a~f;</p>
-<p>tolower(),参数为大写字符，返回小写,否则返回该参数;</p>
-<p>toupper(),参数为小写字符，返回大写，否则返回该参数;</p>
-<p>###(这些函数返回值为int，而非bool。) </p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/24/2019.03.24/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -804,7 +799,7 @@ Hint
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2020 The One
+    		&copy; 2021 The One
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
