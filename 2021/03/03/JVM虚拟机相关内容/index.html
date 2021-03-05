@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="The best">
 <meta property="og:description" content="1.什么是JVM虚拟机我们平时写的java代码都是在一个名为Java虚拟机的地方运行的，相当于windows系统中内置的一个虚拟系统，可以理解为用来将编译生成的class文件进行进一步加工，使得本机操作系统可以对class文件进行执行。 命令行中一个命令对应一个可执行的二进制文件，如果是c语言的HelloWorld程序编译1gcc HelloWorld.c -o HelloWorld 运行1./H">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2021-03-03T09:30:28.125Z">
+<meta property="og:updated_time" content="2021-03-05T05:54:52.123Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM虚拟机相关内容">
 <meta name="twitter:description" content="1.什么是JVM虚拟机我们平时写的java代码都是在一个名为Java虚拟机的地方运行的，相当于windows系统中内置的一个虚拟系统，可以理解为用来将编译生成的class文件进行进一步加工，使得本机操作系统可以对class文件进行执行。 命令行中一个命令对应一个可执行的二进制文件，如果是c语言的HelloWorld程序编译1gcc HelloWorld.c -o HelloWorld 运行1./H">
@@ -185,6 +185,7 @@
 <p>java命令首先启动虚拟机进程，虚拟机进程成功启动后，读取参数“HelloWorld”，把他作为初始类加载到内存，对这个类进行初始化和动态链接（关于类的初始化和动态链接会在后面的博客中介绍），然后从这个类的main方法开始执行。也就是说我们的.class文件不是直接被系统加载后直接在cpu上执行的，而是被一个叫做虚拟机的进程托管的。首先必须虚拟机进程启动就绪，然后由虚拟机中的类加载器加载必要的class文件，包括jdk中的基础类（如String和Object等），然后由虚拟机进程解释class字节码指令，把这些字节码指令翻译成本机cpu能够识别的指令，才能在cpu上运行。</p>
 <p>从这个层面上来看，在执行一个所谓的java程序的时候，真真正正在执行的是一个叫做Java虚拟机的进程，而不是我们写的一个个的class文件。这个叫做虚拟机的进程处理一些底层的操作，比如内存的分配和释放等等。我们编写的class文件只是虚拟机进程执行时需要的“原料”。这些“原料”在运行时被加载到虚拟机中，被虚拟机解释执行，以控制虚拟机实现我们java代码中所定义的一些相对高层的操作，比如创建一个文件等，可以将class文件中的信息看做对虚拟机的控制信息，也就是一种虚拟指令。</p>
 <p>原文链接（<a href="https://blog.csdn.net/zhangjg_blog/article/details/20380971）" target="_blank" rel="noopener">https://blog.csdn.net/zhangjg_blog/article/details/20380971）</a></p>
+<h4 id="2-虚拟机内存划分"><a href="#2-虚拟机内存划分" class="headerlink" title="2.虚拟机内存划分"></a>2.虚拟机内存划分</h4><p>JVM内存区域大概分为Class文件、类装载子系统、运行时数据区、执行引擎。<br>以下主要对运行时数据区进行详细介绍。<br>（1）方法区：存储已被虚拟机加载的类常量，常量，静态常量，即使编译器编译后的代码等数据，其中有一个运行时常量池，其存储的是class文件中描述的符号引用，直接引用。在编译期和运行期都可以将新的常量放入此池子。<br>（2）堆：栈解决的是程序运行的问题，堆解决的是数据存储的问题，所有的对象实例都在这里分配内存。<br>特点：<br>a. 堆是虚拟机内存中最大的一块，大概占内存的四分之三。<br>b. 可以处于物理上不连续的内存空间中，只要是逻辑上连续的即可。<br>内存回收上看分为新生代和老年代，内存分配的角度看，可划分出多个线程私有的分配缓冲区。<br>（3）虚拟机栈：存储栈帧，栈帧里存储的是局部变量表，操作数栈，动态链接，方法出口等信息。<br>每个方法执行的同时都会创建一个栈帧，一个方法调用到执行完成的过程，就对应着一个栈帧在虚拟机栈中入栈到出栈的过程。栈帧中的局部变量表存放的是编译期可知的各种基本数据类型，对象引用returnaddress类型。期所需内存空间在编译期间就能完成分配，在运行期间不会改变其大小。64位long，double占用两个局部空间，其余数据类型只占一个。<br>（4）本地方法栈：本地方法栈与虚拟机栈作用相同，虚拟机栈执行java方法，本地方法栈执行Native方法，java方法指开发人员写的java代码，Native方法就是一个java调用非java代码的接口。<br>（5）程序计数器：存放当前线程所执行的字节码的行号。jvm工作时就是通过改变这个计数器的值来选取下一条需要执行的字节码指令。   </p>
 
       
 
