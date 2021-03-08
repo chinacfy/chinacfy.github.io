@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | The best</title>
+  <title>深度剖析synchronized | The best</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="The best">
-<meta property="og:url" content="http://yoursite.com/archives/page/2/index.html">
+  <meta name="description" content="synchronized介绍synchronized关键字用于对象，方法和代码块，代表这个方法加锁，相当于不管哪一个进程（例如线程A），运行到这个方法时都要检查有没有其他线程B（或者C、D等）正在使用这个方法，有的话要等待正在使用synchronized方法的线程B（C、D）运行完成后再进行其他线程对此方法的调用。总结一点就是用来加锁，防止同一资源方法被不同线程使用所产生的的线程安全问题。具体可以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度剖析synchronized">
+<meta property="og:url" content="http://yoursite.com/2021/03/08/深度剖析synchronized/index.html">
 <meta property="og:site_name" content="The best">
+<meta property="og:description" content="synchronized介绍synchronized关键字用于对象，方法和代码块，代表这个方法加锁，相当于不管哪一个进程（例如线程A），运行到这个方法时都要检查有没有其他线程B（或者C、D等）正在使用这个方法，有的话要等待正在使用synchronized方法的线程B（C、D）运行完成后再进行其他线程对此方法的调用。总结一点就是用来加锁，防止同一资源方法被不同线程使用所产生的的线程安全问题。具体可以">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2021-03-08T07:46:36.333Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="The best">
+<meta name="twitter:title" content="深度剖析synchronized">
+<meta name="twitter:description" content="synchronized介绍synchronized关键字用于对象，方法和代码块，代表这个方法加锁，相当于不管哪一个进程（例如线程A），运行到这个方法时都要检查有没有其他线程B（或者C、D等）正在使用这个方法，有的话要等待正在使用synchronized方法的线程B（C、D）运行完成后再进行其他线程对此方法的调用。总结一点就是用来加锁，防止同一资源方法被不同线程使用所产生的的线程安全问题。具体可以">
   
     <link rel="alternative" href="/atom.xml" title="The best" type="application/atom+xml">
   
@@ -150,287 +154,162 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-深度剖析synchronized" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      深度剖析synchronized
+    </h1>
+  
+
+        
+        <a href="/2021/03/08/深度剖析synchronized/" class="archive-article-date">
+  	<time datetime="2021-03-08T06:29:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-08</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="synchronized介绍"><a href="#synchronized介绍" class="headerlink" title="synchronized介绍"></a>synchronized介绍</h4><p>synchronized关键字用于对象，方法和代码块，代表这个方法加锁，相当于不管哪一个进程（例如线程A），运行到这个方法时都要检查有没有其他线程B（或者C、D等）正在使用这个方法，有的话要等待正在使用synchronized方法的线程B（C、D）运行完成后再进行其他线程对此方法的调用。总结一点就是用来加锁，防止同一资源方法被不同线程使用所产生的的线程安全问题。具体可以参考StringBuilder类和StringBuffer类，我们所熟知的Buffer类线程安全的原因便是在于使用了synchronized方法。   </p>
+<h5 id="同步原理"><a href="#同步原理" class="headerlink" title="同步原理"></a>同步原理</h5><p>JVM规范规定JVM基于进入和退出Monitor对象来实现方法同步和代码块同步，代码块同步主要使用monitorenter和monitorexit指令实现，而方法同步并没有做过多的介绍，方法同步同样可以使用这两个指令进行实现。monitorenter指令是在编译后插入到同步代码块的开始位置，monitorexit是插入到方法结束处和异常处，JVM保证每个monitorenter和每个monitorexit与之配对。任何对象都有一个monitor与之关联，当且一个monitor被持有后，他将处于锁定状态。线程执行到monitorenter指令时，将会尝试获取对象所对应的monitor的所有权，即尝试获得对象的锁。</p>
+<h5 id="Java对象头"><a href="#Java对象头" class="headerlink" title="Java对象头"></a>Java对象头</h5><p>锁存在Java对象头里，如果对象是数组类型，虚拟机用3个Word（字宽）存储对象头，如果对象是非数组类型，则用2字宽存储对象头。32位虚拟机中一字宽等于四字节，即32位。<br>Java对象头里包含Mark Word（用来存储对象的hashCode或锁信息），Class Metadata Address（用来存储到对象类型数据的指针），Array length（如果当前对象是数组便是数组的长度），对于Mark Word的存储结构分解参考<a href="https://blog.csdn.net/hsuxu/article/details/9472371" target="_blank" rel="noopener">https://blog.csdn.net/hsuxu/article/details/9472371</a></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/p.jpg">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/15/Hamming-Ellipses/" class="archive-article-date">
-  	<time datetime="2020-08-15T00:58:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/15/Hamming-Ellipses/">Hamming Ellipses</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/12/SPFA/" class="archive-article-date">
-  	<time datetime="2020-08-12T08:40:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/12/SPFA/">SPFA</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/10/链式前向星/" class="archive-article-date">
-  	<time datetime="2020-08-10T06:37:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/10/链式前向星/">链式前向星</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/10/Battle-for-Wosneth/" class="archive-article-date">
-  	<time datetime="2020-08-10T03:12:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/10/Battle-for-Wosneth/">Battle for Wosneth</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/10/快速幂求逆元/" class="archive-article-date">
-  	<time datetime="2020-08-10T01:29:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/10/快速幂求逆元/">快速幂求逆元</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/09/hexo-admin/" class="archive-article-date">
-  	<time datetime="2020-08-09T08:06:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/09/hexo-admin/">hexo-admin</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/09/hello/" class="archive-article-date">
-  	<time datetime="2020-08-09T07:54:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/09/hello/">hello</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
       
-        </div></section>
+
       
+
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/07/2019.08.07/" class="archive-article-date">
-  	<time datetime="2019-08-07T01:46:13.446Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-07</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+      </div>
+    </span>
+  </div>
+</div>
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2021/03/08/深度剖析synchronized/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/05/25/2019.05.25/" class="archive-article-date">
-  	<time datetime="2019-05-25T07:31:40.656Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-25</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/05/13/网页相关内容/" class="archive-article-date">
-  	<time datetime="2019-05-13T11:47:26.777Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-13</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+<nav id="article-nav">
+  
+  
+    <a href="/2021/03/03/JVM虚拟机相关内容/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JVM虚拟机相关内容</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+        
+    </div>
+</aside>
+
+
+
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/page/3/">3</a><a class="page-number" href="/archives/page/4/">4</a><a class="extend next" rel="next" href="/archives/page/3/">Next &raquo;</a>
-    </nav>
+  
+
+  
+
   
 
 
@@ -454,8 +333,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
