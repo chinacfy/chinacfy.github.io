@@ -152,6 +152,70 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-JDK与JRE的区别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/16/JDK与JRE的区别/">JDK与JRE的区别</a>
+    </h1>
+  
+
+        
+        <a href="/2021/03/16/JDK与JRE的区别/" class="archive-article-date">
+  	<time datetime="2021-03-16T08:49:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="剖析JDK、JRE与JVM的关系"><a href="#剖析JDK、JRE与JVM的关系" class="headerlink" title="剖析JDK、JRE与JVM的关系"></a>剖析JDK、JRE与JVM的关系</h4><p>JRE：Java Runtime Evironment<br>JDK：Java Development Kit<br>JVM：Java Virtual Machine<br>JRE为Java程序运行时所需要的环境，包含Java基础类库和JVM，提供给想运行Java程序的用户。<br>JDK是Java开发工具包，是程序员使用Java语言编写Java程序所需的开发工具包，包含JRE，同时包含编译Java源码的编译器javac，还包含了很多java程序调试和分析的工具：jconsole，jvisualvm等工具软件，还包含了java程序编写所需的文档和demo例子程序。 </p>
+<p>再说说java的跨平台吧:<br>  java源程序先经过javac编译器编译成二进制的.class字节码文件（java的跨平台指的就是.class字节码文件的跨平台，.class字节码文件是与平台无关的），.class文件再运行在jvm上，java解释器（jvm的一部分）会将其解释成对应平台的机器码执行，所以java所谓的跨平台就是在不同平台上安装了不同的jvm，而在不同平台上生成的.class文件都是一样的，而.class文件再由对应平台的jvm解释成对应平台的机器码执行</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/03/16/JDK与JRE的区别/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-深度剖析synchronized" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -715,69 +779,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/08/17/Welcome-Party-1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-拓扑排序" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/15/拓扑排序/">拓扑排序</a>
-    </h1>
-  
-
-        
-        <a href="/2020/08/15/拓扑排序/" class="archive-article-date">
-  	<time datetime="2020-08-15T08:41:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>拓扑排序适用于事件存在先后顺序，最后达到的安排事件的顺序，如果需要按照字典序或是从小到大的情况可以将其中的队列改为优先队列。可以参考西安邮电大学2020年校赛，链接如下：<br><a href="https://ac.nowcoder.com/acm/contest/5678/B" target="_blank" rel="noopener">https://ac.nowcoder.com/acm/contest/5678/B</a><br>拓扑排序主要实现思想便是将入度为0的点存入队列，对此队列进行不断更新，队首出队，存入vector数组，遍历此点为出发点的边，将所能到达的点入度减少，如果到达的点入度变为0，将其入队，进行循环操作，直至队列为空，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;bits/stdc++.h&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">const int maxn=1e5+10;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    int n,m;</span><br><span class="line">    int in[maxn];</span><br><span class="line">    vector&lt;int&gt;g[maxn];</span><br><span class="line">    queue&lt;int&gt;q;//priority_queue&lt;int,vector&lt;int&gt;,greater&lt;int&gt; &gt;q;</span><br><span class="line">    memset(in,0,sizeof(in));</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">    for(int i=0;i&lt;m;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        int u,v;</span><br><span class="line">        cin&gt;&gt;u&gt;&gt;v;</span><br><span class="line">        in[v]++;</span><br><span class="line">        g[u].push_back(v);</span><br><span class="line">    &#125;</span><br><span class="line">    for(int i=1;i&lt;=n;i++)</span><br><span class="line">        if(in[i]==0)</span><br><span class="line">            q.push(i);</span><br><span class="line">    vector&lt;int&gt;ans;</span><br><span class="line">    while(!q.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        int p=q.front();</span><br><span class="line">        q.pop();</span><br><span class="line">        ans.push_back(p);</span><br><span class="line">        for(int i=0;i&lt;g[p].size();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            int x=g[p][i];</span><br><span class="line">            in[x]--;</span><br><span class="line">            if(in[x]==0)</span><br><span class="line">                q.push(x);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    for(int i=0;i&lt;ans.size();i++)</span><br><span class="line">        cout&lt;&lt;ans[i]&lt;&lt;endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/08/15/拓扑排序/">展开全文 >></a>
         </p>
       
 
