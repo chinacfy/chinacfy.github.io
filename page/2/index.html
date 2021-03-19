@@ -152,6 +152,69 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Welcome-Party-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/08/17/Welcome-Party-1/">Welcome Party</a>
+    </h1>
+  
+
+        
+        <a href="/2020/08/17/Welcome-Party-1/" class="archive-article-date">
+  	<time datetime="2020-08-17T02:09:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>此题是一道2019年浙江省省赛有关图论的题，题目链接如下：<br><a href="https://vjudge.net/problem/ZOJ-4109" target="_blank" rel="noopener">https://vjudge.net/problem/ZOJ-4109</a><br>大致题意：有n个参加party的人，他们之间有m对朋友关系，按顺序进入party，如果他们进去之后发现没有他们的朋友，他们会不开心，而你要做的是怎么安排进入顺序使得不开心的人数最小，在此基础上还要保证进入的字典序尽可能的小，因为编号越小说明越重要。<br>解题思路：需要字典序最小，首先想到的就是优先队列，因为需要确定不开心的人数有几个，所以就相当于分块，每一块是一个小集体，也只有第一个人进入的时候才会不开心，其他人进入都不会不开心，首先用并查集进行分块操作，me[i]==i时是一个块找到块之后，将这个点放入优先队列，会自动对其进行排序，放进去之后再对块里面的内容进行循环遍历，队首出队，对队首所在的块内容进行遍历，并且用visit数组进行标记，并不断将块内元素入队，出队的时候不断讲元素存入vector中，作为最后的答案顺序输出。<br>代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;sstream&gt;</span><br><span class="line">#include&lt;cstdio&gt;</span><br><span class="line">#include&lt;cstdlib&gt;</span><br><span class="line">#include&lt;cstring&gt;</span><br><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;vector&gt;</span><br><span class="line">#include&lt;map&gt;</span><br><span class="line">#include&lt;set&gt;</span><br><span class="line">#include&lt;queue&gt;</span><br><span class="line">#include&lt;stack&gt;</span><br><span class="line">#include&lt;cmath&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line">typedef long long ll;</span><br><span class="line">typedef long double ld;</span><br><span class="line"></span><br><span class="line">#define pii pair&lt;int,int&gt;</span><br><span class="line">#define fi first</span><br><span class="line">#define se second</span><br><span class="line">const int pi = acos(-1.0);</span><br><span class="line">const double eps=1e-6;</span><br><span class="line">const int mod=1e9+7;</span><br><span class="line">const int maxn=1e6+1000;</span><br><span class="line">int head[maxn*2],to[maxn*2],nex[maxn*2],idx;</span><br><span class="line">void add(int x,int y)&#123;</span><br><span class="line">	nex[++idx] = head[x];</span><br><span class="line">	to[idx] = y;</span><br><span class="line">	head[x] = idx;</span><br><span class="line">&#125;</span><br><span class="line">int me[maxn];</span><br><span class="line">int find(int x)&#123;</span><br><span class="line">	return me[x]==x ? x : me[x]=find(me[x]) ;</span><br><span class="line">&#125;</span><br><span class="line">void merge(int x,int y)&#123;</span><br><span class="line">	int t1 = find(x);</span><br><span class="line">	int t2 = find(y);</span><br><span class="line">	if(t1!=t2)&#123;</span><br><span class="line">		if(t1&lt;t2) me[t2] = t1;</span><br><span class="line">		else me[t1] = t2;</span><br><span class="line">	&#125;</span><br><span class="line">	return ;</span><br><span class="line">&#125;</span><br><span class="line">int vis[maxn];</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	int t;</span><br><span class="line">	cin&gt;&gt;t;</span><br><span class="line">	priority_queue&lt;int,vector&lt;int&gt;,greater&lt;int&gt; &gt; q;</span><br><span class="line">	vector&lt;int&gt; ans;</span><br><span class="line">	while(t--)&#123;</span><br><span class="line">		while(!q.empty()) q.pop();</span><br><span class="line">		ans.clear();</span><br><span class="line">		int n,m;</span><br><span class="line">		scanf(&quot;%d%d&quot;,&amp;n,&amp;m);</span><br><span class="line">		idx = 0;</span><br><span class="line">		for(int i=1;i&lt;=n*2+100;++i)&#123;</span><br><span class="line">			head[i] = 0;</span><br><span class="line">		&#125;</span><br><span class="line">		for(int i=1;i&lt;=n;++i)&#123;</span><br><span class="line">			 me[i] = i;</span><br><span class="line">			 vis[i] = 0;</span><br><span class="line">		&#125;</span><br><span class="line">		for(int i=0;i&lt;m;++i)&#123;</span><br><span class="line">			int x,y;</span><br><span class="line">			scanf(&quot;%d%d&quot;,&amp;x,&amp;y);</span><br><span class="line">			add(x,y);</span><br><span class="line">			add(y,x);</span><br><span class="line">			merge(x,y);</span><br><span class="line">		&#125;</span><br><span class="line">		int st = 0;</span><br><span class="line">		for(int i=1;i&lt;=n;++i)&#123;</span><br><span class="line">			if(me[i]==i)&#123;</span><br><span class="line">				++st;</span><br><span class="line">				vis[i] = 1;</span><br><span class="line">				q.push(i);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		cout&lt;&lt;st&lt;&lt;endl;</span><br><span class="line">		while(q.size())&#123;</span><br><span class="line">			int t = q.top();</span><br><span class="line">			q.pop();</span><br><span class="line">			ans.push_back(t);</span><br><span class="line">			for(int i=head[t];i;i=nex[i])&#123;</span><br><span class="line">				int y = to[i];</span><br><span class="line">				if(vis[y]) continue;</span><br><span class="line">				vis[y] = 1;</span><br><span class="line">				q.push(y);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		for(int i=0;i&lt;ans.size()-1;++i) cout&lt;&lt;ans[i]&lt;&lt;&apos; &apos;;</span><br><span class="line">		cout&lt;&lt;ans.back()&lt;&lt;endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/08/17/Welcome-Party-1/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-拓扑排序" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -727,59 +790,6 @@ Hint
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/08/07/2019.08.07/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-2019.05.25" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>#有关c++排列组合函数：<br>do<br>{</p>
-<p>}while(next_permutation(a+1,a+10));</p>
-<p>例如1,2,3</p>
-<p>a[3]={1,2,3}</p>
-<p>用完排列函数输出答案为</p>
-<p>1 2 3<br>1 3 2<br>2 1 3<br>2 3 1<br>3 1 2<br>3 2 1</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/25/2019.05.25/">展开全文 >></a>
         </p>
       
 
